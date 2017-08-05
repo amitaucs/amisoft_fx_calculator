@@ -1,6 +1,7 @@
 package com.amisoft.anz;
 
 import com.amisoft.services.ConversionCalculatorService;
+import com.amisoft.services.DisplayService;
 import com.amisoft.utils.ConversionUtility;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,6 +23,11 @@ public class AnzApplication {
 	@Bean
 	ConversionCalculatorService conversionCalculatorService(){
 		return new ConversionCalculatorService();
+	}
+
+	@Bean
+	DisplayService displayService(){
+		return new DisplayService();
 	}
 
 }

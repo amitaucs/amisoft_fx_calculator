@@ -37,7 +37,7 @@ public class FXCalculatorRunner implements CommandLineRunner {
     ConversionCalculatorService conversionCalculatorService;
 
 
-    private  Map<String, Double> mainConversionRateMap = new TreeMap<>();
+    private  Map<String, BigDecimal> mainConversionRateMap = new TreeMap<>();
 
     private  Map<String, Integer> uptoWhatDecimalPtMap = new TreeMap<>();
 
@@ -115,7 +115,7 @@ public class FXCalculatorRunner implements CommandLineRunner {
         scanner.close();
         scanner = null;
         int uptoWhatDecimalPt = (uptoWhatDecimalPtMap.getOrDefault(targetCurrency,defaultDecimalPoint));
-        Double conversionRate = mainConversionRateMap.get(sourceCurrency+targetCurrency);
+        BigDecimal conversionRate = mainConversionRateMap.get(sourceCurrency+targetCurrency);
 
 
         System.out.println("Source Currency :" + sourceCurrency);
@@ -126,10 +126,13 @@ public class FXCalculatorRunner implements CommandLineRunner {
 
         CurrencyConversionDetailsDto currencyConversionDetailsDto =  constructConversionDto(sourceCurrency,targetCurrency,amount,conversionRate,uptoWhatDecimalPt);
 
-        String convertedAmount = conversionCalculatorService.doConversion(currencyConversionDetailsDto);
+        String convertedAmountDisplay = conversionCalculatorService.doConversion(currencyConversionDetailsDto);
+
+        System.out.println();
+        System.out.println(convertedAmountDisplay);
     }
 
-    private CurrencyConversionDetailsDto constructConversionDto(String source,String target,BigDecimal amount, Double conversionRate, int uptoWhatDecimalPt) {
+    private CurrencyConversionDetailsDto constructConversionDto(String source,String target,BigDecimal amount, BigDecimal conversionRate, int uptoWhatDecimalPt) {
 
         CurrencyConversionDetailsDto conversionDetailsDto = new CurrencyConversionDetailsDto();
         conversionDetailsDto.setSourceCurrency(source);

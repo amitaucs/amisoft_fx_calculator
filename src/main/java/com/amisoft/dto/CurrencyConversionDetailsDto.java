@@ -7,8 +7,9 @@ public class CurrencyConversionDetailsDto {
     private String sourceCurrency;
     private String targetCurrency;
     private BigDecimal amount;
-    private Double conversionRate;
+    private BigDecimal conversionRate;
     private int upToWhichDecimalPt;
+    private BigDecimal convertedAmount;
 
     public String getSourceCurrency() {
         return sourceCurrency;
@@ -34,11 +35,11 @@ public class CurrencyConversionDetailsDto {
         this.amount = amount;
     }
 
-    public Double getConversionRate() {
+    public BigDecimal getConversionRate() {
         return conversionRate;
     }
 
-    public void setConversionRate(Double conversionRate) {
+    public void setConversionRate(BigDecimal conversionRate) {
         this.conversionRate = conversionRate;
     }
 
@@ -48,5 +49,13 @@ public class CurrencyConversionDetailsDto {
 
     public void setUpToWhichDecimalPt(int upToWhichDecimalPt) {
         this.upToWhichDecimalPt = upToWhichDecimalPt;
+    }
+
+    public BigDecimal getConvertedAmount() {
+        return convertedAmount;
+    }
+
+    public void setConvertedAmount(BigDecimal convertedAmount) {
+        this.convertedAmount = convertedAmount;
     }
 }
