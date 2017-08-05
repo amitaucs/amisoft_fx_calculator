@@ -1,7 +1,7 @@
 package com.amisoft.anz;
 
 import com.amisoft.services.ConversionCalculatorService;
-import com.amisoft.services.ConversionRateLoaderService;
+import com.amisoft.utils.ConversionUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -23,10 +23,19 @@ public class FXCalculatorRunner implements CommandLineRunner {
     @Value(value = "${fx.calculator.main-conversion-table}")
     String mainConversionTable;
 
+    @Value(value = "${fx.calculator.default-decimal-point}")
+    String defaultDecimal;
+
+    @Value(value = "${fx.calculator.special-decimal-point}")
+    String specialDecimal;
+
+
     private  Map<String, Double> mainConversionRateMap = new TreeMap<>();
 
+    private  Map<String, Double> uptoWhichDecimalPtMap = new TreeMap<>();
+
     @Autowired
-    ConversionRateLoaderService conversionRateLoader;
+    ConversionUtility conversionRateLoader;
 
     @Autowired
     ConversionCalculatorService conversionCalculatorService;
@@ -97,6 +106,8 @@ public class FXCalculatorRunner implements CommandLineRunner {
         String targetCurrency = scanner.next();
         scanner.close();
         scanner = null;
+
+
 
         System.out.println("Source Currency :" + sourceCurrency);
         System.out.println("Amount :" + amount);

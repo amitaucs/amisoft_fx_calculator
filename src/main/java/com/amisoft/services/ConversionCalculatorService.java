@@ -10,11 +10,7 @@ import java.math.BigDecimal;
 public class ConversionCalculatorService {
 
 
-    @Value(value = "${fx.calculator.default-decimal-point}")
-    String defaultDecimal;
 
-    @Value(value = "${fx.calculator.special-decimal-point}")
-    String specialDecimal;
 
 
   public String doConversion(String sourceCurrency, String targetCurrency, BigDecimal amount,Double conversionRate){
