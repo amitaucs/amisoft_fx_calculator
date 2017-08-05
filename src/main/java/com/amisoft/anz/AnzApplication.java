@@ -1,6 +1,7 @@
 package com.amisoft.anz;
 
-import com.amisoft.services.ConversionRateLoader;
+import com.amisoft.services.ConversionCalculatorService;
+import com.amisoft.services.ConversionRateLoaderService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +15,13 @@ public class AnzApplication {
 	}
 
 	@Bean
-	public ConversionRateLoader conversionRateLoader(){
-		return new ConversionRateLoader();
+	public ConversionRateLoaderService conversionRateLoader(){
+		return new ConversionRateLoaderService();
+	}
+
+	@Bean
+	ConversionCalculatorService conversionCalculatorService(){
+		return new ConversionCalculatorService();
 	}
 
 }

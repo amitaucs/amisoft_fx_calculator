@@ -1,6 +1,7 @@
 package com.amisoft.anz;
 
-import com.amisoft.services.ConversionRateLoader;
+import com.amisoft.services.ConversionCalculatorService;
+import com.amisoft.services.ConversionRateLoaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -22,10 +23,13 @@ public class FXCalculatorRunner implements CommandLineRunner {
     @Value(value = "${fx.calculator.main-conversion-table}")
     String mainConversionTable;
 
-    public Map<String, Double> mainConversionRateMap = new TreeMap<>();
+    private  Map<String, Double> mainConversionRateMap = new TreeMap<>();
 
     @Autowired
-    ConversionRateLoader conversionRateLoader;
+    ConversionRateLoaderService conversionRateLoader;
+
+    @Autowired
+    ConversionCalculatorService conversionCalculatorService;
 
     @Override
     public void run(String... strings) {
@@ -97,6 +101,9 @@ public class FXCalculatorRunner implements CommandLineRunner {
         System.out.println("Source Currency :" + sourceCurrency);
         System.out.println("Amount :" + amount);
         System.out.println("Target Currency :" + targetCurrency);
+        Double conversionRate = mainConversionRateMap.get(sourceCurrency+targetCurrency);
+
+        String convertedAmount = conversionCalculatorService.doConversion(sourceCurrency,targetCurrency,amount,conversionRate);
     }
 
     private Boolean exitCheck(Boolean isDone, Scanner scanner) {

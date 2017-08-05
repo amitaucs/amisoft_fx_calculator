@@ -9,7 +9,7 @@ import java.util.Map;
 
 
 @Service
-public class ConversionRateLoader {
+public class ConversionRateLoaderService {
 
 
     public void loadmainCurrencyConversion(String mainConversionTable,Map<String,Double> mainConversionRateMap){
