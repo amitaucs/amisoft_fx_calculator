@@ -21,10 +21,6 @@ public class FXCalculatorRunner implements CommandLineRunner {
 
 
         Boolean isDone = false;
-        System.out.println("Hello");
-        System.out.println(regExpression);
-
-
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to FX Calculator");
