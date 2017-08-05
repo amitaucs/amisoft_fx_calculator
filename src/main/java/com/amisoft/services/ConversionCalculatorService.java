@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 @Service
 public class ConversionCalculatorService {
@@ -19,7 +21,7 @@ public class ConversionCalculatorService {
         BigDecimal conversionRate = currencyConversionDetailsDto.getConversionRate();
 
         BigDecimal convertedAmount = amount.multiply(conversionRate);
-        convertedAmount = convertedAmount.setScale(currencyConversionDetailsDto.getUpToWhichDecimalPt());
+        convertedAmount = convertedAmount.setScale(currencyConversionDetailsDto.getUpToWhichDecimalPt(),BigDecimal.ROUND_HALF_UP);
         currencyConversionDetailsDto.setConvertedAmount(convertedAmount);
         return displayService.displayConversionOutput(currencyConversionDetailsDto);
     }

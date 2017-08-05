@@ -42,12 +42,11 @@ public class FXCalculatorRunner implements CommandLineRunner {
     DisplayService displayService;
 
 
-    private  Map<String, BigDecimal> mainConversionRateMap = new TreeMap<>();
+    private Map<String, BigDecimal> mainConversionRateMap = new TreeMap<>();
 
-    private  Map<String, Integer> uptoWhatDecimalPtMap = new TreeMap<>();
+    private Map<String, Integer> uptoWhatDecimalPtMap = new TreeMap<>();
 
     int defaultDecimalPoint;
-
 
 
     @Override
@@ -86,7 +85,7 @@ public class FXCalculatorRunner implements CommandLineRunner {
         defaultDecimalPoint = Integer.valueOf(defaultDecimal);
 
         conversionUtility.loadmainCurrencyConversion(mainConversionTable, mainConversionRateMap);
-        conversionUtility.LoadMapFromPropertyInt(specialDecimal,uptoWhatDecimalPtMap);
+        conversionUtility.LoadMapFromPropertyInt(specialDecimal, uptoWhatDecimalPtMap);
     }
 
     private void readFxInput(Scanner scanner) {
@@ -119,30 +118,31 @@ public class FXCalculatorRunner implements CommandLineRunner {
         String targetCurrency = scanner.next();
         scanner.close();
         scanner = null;
-        int uptoWhatDecimalPt = (uptoWhatDecimalPtMap.getOrDefault(targetCurrency,defaultDecimalPoint));
-        Optional<BigDecimal> conversionRate = conversionUtility.conversionRate(sourceCurrency,targetCurrency,mainConversionRateMap);
+        int uptoWhatDecimalPt = (uptoWhatDecimalPtMap.getOrDefault(targetCurrency, defaultDecimalPoint));
+        Optional<BigDecimal> conversionRate = conversionUtility.conversionRate(sourceCurrency.toUpperCase(), targetCurrency.toUpperCase(), mainConversionRateMap);
 
 
-        if(conversionRate.isPresent()){
-        System.out.println("Source Currency :" + sourceCurrency);
-        System.out.println("Amount :" + amount);
-        System.out.println("Target Currency :" + targetCurrency);
-        System.out.println("Conversion Rate : "+conversionRate.get());
-        System.out.println("Upto what decimal :"+uptoWhatDecimalPt);
+        if (conversionRate.isPresent()) {
+            System.out.println("Source Currency :" + sourceCurrency);
+            System.out.println("Amount :" + amount);
+            System.out.println("Target Currency :" + targetCurrency);
+            System.out.println("Conversion Rate : " + conversionRate.get());
+            System.out.println("Upto what decimal :" + uptoWhatDecimalPt);
 
-        CurrencyConversionDetailsDto currencyConversionDetailsDto =  constructConversionDto(sourceCurrency,targetCurrency,amount,conversionRate.get(),uptoWhatDecimalPt);
+            CurrencyConversionDetailsDto currencyConversionDetailsDto = constructConversionDto(sourceCurrency, targetCurrency, amount, conversionRate.get(), uptoWhatDecimalPt);
 
-        String convertedAmountDisplay = conversionCalculatorService.doConversion(currencyConversionDetailsDto);
+            String convertedAmountDisplay = conversionCalculatorService.doConversion(currencyConversionDetailsDto);
 
-        System.out.println();
-        System.out.println(convertedAmountDisplay);}else{
+            System.out.println();
+            System.out.println(convertedAmountDisplay);
+        } else {
 
-            CurrencyConversionDetailsDto currencyConversionDetailsDto =  constructConversionDto(sourceCurrency,targetCurrency,amount,conversionRate.get(),uptoWhatDecimalPt);
+            CurrencyConversionDetailsDto currencyConversionDetailsDto = constructConversionDto(sourceCurrency, targetCurrency, amount, conversionRate.get(), uptoWhatDecimalPt);
             displayService.displayConversionOutputError(currencyConversionDetailsDto);
         }
     }
 
-    private CurrencyConversionDetailsDto constructConversionDto(String source,String target,BigDecimal amount, BigDecimal conversionRate, int uptoWhatDecimalPt) {
+    private CurrencyConversionDetailsDto constructConversionDto(String source, String target, BigDecimal amount, BigDecimal conversionRate, int uptoWhatDecimalPt) {
 
         CurrencyConversionDetailsDto conversionDetailsDto = new CurrencyConversionDetailsDto();
         conversionDetailsDto.setSourceCurrency(source);

@@ -51,15 +51,19 @@ public class ConversionUtility {
 
     public Optional<BigDecimal> conversionRate(String sourceCurrency , String targetCurrency, Map<String, BigDecimal> targeteMap){
 
-        Optional<BigDecimal> converrateOptional = Optional.of(targeteMap.get(sourceCurrency+targetCurrency));
-        if(converrateOptional.isPresent()){
-           return converrateOptional;
+        BigDecimal convertionRateOptional = targeteMap.getOrDefault(sourceCurrency+targetCurrency,null);
+
+        if(null != convertionRateOptional){
+           return Optional.of(convertionRateOptional);
         }else{
 
-            converrateOptional = Optional.of(targeteMap.get(targetCurrency+sourceCurrency));
-            if(converrateOptional.isPresent()){
+            convertionRateOptional = targeteMap.get(targetCurrency+sourceCurrency);
+            if(null != convertionRateOptional){
 
-                  BigDecimal conversionRate = BigDecimal.valueOf(1).divide(converrateOptional.get()).setScale(4);
+                  BigDecimal conversionRate = (BigDecimal.valueOf(1).divide(convertionRateOptional,4,BigDecimal.ROUND_HALF_EVEN));
+
+                  //adding missing value in map for faster processing
+
                   targeteMap.putIfAbsent(targetCurrency+sourceCurrency,conversionRate);
                   return Optional.of(conversionRate);
 
