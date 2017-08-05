@@ -17,11 +17,13 @@ public class DisplayService {
         StringBuilder displayString = new StringBuilder()
                 .append(currencyConversionDetailsDto.getSourceCurrency())
                 .append(space)
-                .append(currencyConversionDetailsDto.getAmount())
+                .append(String.valueOf(currencyConversionDetailsDto.getAmount()))
                 .append(space)
                 .append(equalStr)
                 .append(space)
-                .append(currencyConversionDetailsDto.getTargetCurrency());
+                .append(currencyConversionDetailsDto.getTargetCurrency())
+                .append(space)
+                .append(String.valueOf(currencyConversionDetailsDto.getConvertedAmount()));
 
         return displayString.toString();
     }
