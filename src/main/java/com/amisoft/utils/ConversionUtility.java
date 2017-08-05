@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 
 @Service
@@ -45,6 +46,28 @@ public class ConversionUtility {
         });
 
         System.out.println(targeteMap.keySet().toString());
+    }
+
+
+    public Optional<BigDecimal> conversionRate(String sourceCurrency , String targetCurrency, Map<String, BigDecimal> targeteMap){
+
+        Optional<BigDecimal> converrateOptional = Optional.of(targeteMap.get(sourceCurrency+targetCurrency));
+        if(converrateOptional.isPresent()){
+           return converrateOptional;
+        }else{
+
+            converrateOptional = Optional.of(targeteMap.get(targetCurrency+sourceCurrency));
+            if(converrateOptional.isPresent()){
+
+                  BigDecimal conversionRate = BigDecimal.valueOf(1).divide(converrateOptional.get()).setScale(4);
+                  targeteMap.putIfAbsent(targetCurrency+sourceCurrency,conversionRate);
+                  return Optional.of(conversionRate);
+
+            }else{
+                return Optional.empty();
+            }
+        }
+
     }
 
 

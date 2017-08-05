@@ -2,6 +2,7 @@ package com.amisoft.anz;
 
 import com.amisoft.dto.CurrencyConversionDetailsDto;
 import com.amisoft.services.ConversionCalculatorService;
+import com.amisoft.services.DisplayService;
 import com.amisoft.utils.ConversionUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
@@ -35,6 +37,9 @@ public class FXCalculatorRunner implements CommandLineRunner {
 
     @Autowired
     ConversionCalculatorService conversionCalculatorService;
+
+    @Autowired
+    DisplayService displayService;
 
 
     private  Map<String, BigDecimal> mainConversionRateMap = new TreeMap<>();
@@ -115,21 +120,26 @@ public class FXCalculatorRunner implements CommandLineRunner {
         scanner.close();
         scanner = null;
         int uptoWhatDecimalPt = (uptoWhatDecimalPtMap.getOrDefault(targetCurrency,defaultDecimalPoint));
-        BigDecimal conversionRate = mainConversionRateMap.get(sourceCurrency+targetCurrency);
+        Optional<BigDecimal> conversionRate = conversionUtility.conversionRate(sourceCurrency,targetCurrency,mainConversionRateMap);
 
 
+        if(conversionRate.isPresent()){
         System.out.println("Source Currency :" + sourceCurrency);
         System.out.println("Amount :" + amount);
         System.out.println("Target Currency :" + targetCurrency);
-        System.out.println("Conversion Rate : "+conversionRate);
+        System.out.println("Conversion Rate : "+conversionRate.get());
         System.out.println("Upto what decimal :"+uptoWhatDecimalPt);
 
-        CurrencyConversionDetailsDto currencyConversionDetailsDto =  constructConversionDto(sourceCurrency,targetCurrency,amount,conversionRate,uptoWhatDecimalPt);
+        CurrencyConversionDetailsDto currencyConversionDetailsDto =  constructConversionDto(sourceCurrency,targetCurrency,amount,conversionRate.get(),uptoWhatDecimalPt);
 
         String convertedAmountDisplay = conversionCalculatorService.doConversion(currencyConversionDetailsDto);
 
         System.out.println();
-        System.out.println(convertedAmountDisplay);
+        System.out.println(convertedAmountDisplay);}else{
+
+            CurrencyConversionDetailsDto currencyConversionDetailsDto =  constructConversionDto(sourceCurrency,targetCurrency,amount,conversionRate.get(),uptoWhatDecimalPt);
+            displayService.displayConversionOutputError(currencyConversionDetailsDto);
+        }
     }
 
     private CurrencyConversionDetailsDto constructConversionDto(String source,String target,BigDecimal amount, BigDecimal conversionRate, int uptoWhatDecimalPt) {

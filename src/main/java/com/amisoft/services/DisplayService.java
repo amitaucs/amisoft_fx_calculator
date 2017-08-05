@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class DisplayService {
 
+    final String space = "  ";
+    final String equalStr = "=";
+    final String SLASH = "/";
+
+
     public String displayConversionOutput(CurrencyConversionDetailsDto currencyConversionDetailsDto) {
 
-
-        final String space = "  ";
-        final String equalStr = "=";
-
-
-        StringBuilder displayString = new StringBuilder()
+        return new StringBuilder()
                 .append(currencyConversionDetailsDto.getSourceCurrency())
                 .append(space)
                 .append(String.valueOf(currencyConversionDetailsDto.getAmount()))
@@ -23,9 +23,25 @@ public class DisplayService {
                 .append(space)
                 .append(currencyConversionDetailsDto.getTargetCurrency())
                 .append(space)
-                .append(String.valueOf(currencyConversionDetailsDto.getConvertedAmount()));
+                .append(String.valueOf(currencyConversionDetailsDto.getConvertedAmount())).toString();
 
-        return displayString.toString();
+    }
+
+
+    public String displayConversionOutputError(CurrencyConversionDetailsDto currencyConversionDetailsDto) {
+
+
+        final String space = "  ";
+        final String equalStr = "=";
+
+
+        return new StringBuilder()
+                .append("Unable to find rate for  ")
+                .append(currencyConversionDetailsDto.getSourceCurrency())
+                .append(SLASH)
+                .append(currencyConversionDetailsDto.getTargetCurrency()).toString();
+
+
     }
 
 }
