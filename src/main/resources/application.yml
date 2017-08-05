@@ -1,0 +1,13 @@
+---
+spring:
+  main:
+    web-environment: false
+logging:
+  pattern:
+    console:
+
+fx:
+  calculator:
+    reg-exp:
+      input: (^[A-Z]{3}[\s]{1,4}[0-9]+(\.[0-9]{1,2})*[\s]{1,4}[IN]{2}[\s]{1,4}([A-Z]{3}$))
+
