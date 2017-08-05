@@ -32,7 +32,7 @@ public class FXCalculatorRunner implements CommandLineRunner {
 
         do {
 
-            System.out.println("Enter your input now :");
+            System.out.println("Please enter your input now :");
             System.out.println();
             readFxInput(scanner);
             isDone = exitCheck(isDone, scanner);
