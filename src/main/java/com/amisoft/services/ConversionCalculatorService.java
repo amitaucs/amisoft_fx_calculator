@@ -1,10 +1,8 @@
 package com.amisoft.services;
 
 
-import org.springframework.beans.factory.annotation.Value;
+import com.amisoft.dto.CurrencyConversionDetailsDto;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 
 @Service
 public class ConversionCalculatorService {
@@ -13,7 +11,7 @@ public class ConversionCalculatorService {
 
 
 
-  public String doConversion(String sourceCurrency, String targetCurrency, BigDecimal amount,Double conversionRate){
+  public String doConversion(CurrencyConversionDetailsDto currencyConversionDetailsDto){
 
       return null;
   }

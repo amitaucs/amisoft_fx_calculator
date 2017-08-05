@@ -33,4 +33,18 @@ public class ConversionUtility {
     }
 
 
+    public void LoadMapFromPropertyInt(String mainConversionTable, Map<String, Integer> targeteMap) {
+
+        List<String> mainConversionRateList = Arrays.asList(StringUtils.split(mainConversionTable,","));
+
+        mainConversionRateList.forEach(convRatePair -> {
+
+            String[] currencyConv = StringUtils.split(convRatePair,"=");
+            targeteMap.putIfAbsent(currencyConv[0], Integer.valueOf(currencyConv[1]));
+        });
+
+        System.out.println(targeteMap.keySet().toString());
+    }
+
+
 }
