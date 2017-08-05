@@ -65,10 +65,17 @@ public class FXCalculatorRunner implements CommandLineRunner {
         scanner.close();
     }
 
+    private void loadAllData() {
+
+        defaultDecimalPoint = Integer.valueOf(defaultDecimal);
+
+        conversionUtility.loadmainCurrencyConversion(mainConversionTable, mainConversionRateMap);
+        conversionUtility.LoadMapFromPropertyInt(specialDecimal, uptoWhatDecimalPtMap);
+    }
+
 
     private void processCalculator(Boolean isDone, Scanner scanner) {
 
-        System.out.println(mainConversionRateMap.get("AUDUSD"));
         do {
 
             System.out.println("Please enter your input now :");
@@ -80,21 +87,13 @@ public class FXCalculatorRunner implements CommandLineRunner {
     }
 
 
-    private void loadAllData() {
 
-        defaultDecimalPoint = Integer.valueOf(defaultDecimal);
-
-        conversionUtility.loadmainCurrencyConversion(mainConversionTable, mainConversionRateMap);
-        conversionUtility.LoadMapFromPropertyInt(specialDecimal, uptoWhatDecimalPtMap);
-    }
 
     private void readFxInput(Scanner scanner) {
 
 
         System.out.println();
         String currencyInput = scanner.nextLine();
-
-        System.out.println("Input is :" + currencyInput);
 
         Pattern pattern = Pattern.compile(regExpression);
         Matcher matcher = pattern.matcher(currencyInput);
@@ -123,11 +122,6 @@ public class FXCalculatorRunner implements CommandLineRunner {
 
 
         if (conversionRate.isPresent()) {
-            System.out.println("Source Currency :" + sourceCurrency);
-            System.out.println("Amount :" + amount);
-            System.out.println("Target Currency :" + targetCurrency);
-            System.out.println("Conversion Rate : " + conversionRate.get());
-            System.out.println("Upto what decimal :" + uptoWhatDecimalPt);
 
             CurrencyConversionDetailsDto currencyConversionDetailsDto = constructConversionDto(sourceCurrency, targetCurrency, amount, conversionRate.get(), uptoWhatDecimalPt);
 
