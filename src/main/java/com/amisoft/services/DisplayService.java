@@ -9,12 +9,17 @@ public class DisplayService {
 
     public String displayConversionOutput(CurrencyConversionDetailsDto currencyConversionDetailsDto) {
 
-        String space = "  ";
+
+        final String space = "  ";
+        final String equalStr = "=";
+
 
         StringBuilder displayString = new StringBuilder()
                 .append(currencyConversionDetailsDto.getSourceCurrency())
                 .append(space)
-                .append(currencyConversionDetailsDto.getConvertedAmount())
+                .append(currencyConversionDetailsDto.getAmount())
+                .append(space)
+                .append(equalStr)
                 .append(space)
                 .append(currencyConversionDetailsDto.getTargetCurrency());
 
