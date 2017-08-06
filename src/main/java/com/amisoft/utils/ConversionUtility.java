@@ -57,7 +57,6 @@ public class ConversionUtility {
             targeteMap.putIfAbsent(currencyConv[0], Integer.valueOf(currencyConv[1]));
         });
 
-        System.out.println(targeteMap.keySet().toString());
     }
 
 
