@@ -52,5 +52,13 @@ public  final class Constant {
     @Value(value = "${fx.message.comma-separator}")
     public  String commaSeparator;
 
+    @Value(value = "${fx.calculator.aud-cross-conversion-table}")
+    public  String audCrossConversion;
+
+    @Value(value = "${fx.calculator.conversion-rate-decimal-point}")
+    public  String crossConvDecimalPoint;
+
+
+
 
 }

@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.math.RoundingMode;
+import java.util.*;
 
 
 @Service
@@ -19,21 +17,61 @@ public class ConversionUtility {
     @Autowired
     Constant constant;
 
-    public void loadmainCurrencyConversion(Map<String,BigDecimal> targeteMap){
 
-        loadMapFromMainConversion(constant.mainConversionTable, targeteMap);
-        loadMapFromCrossConversion(targeteMap);
+    public void loadmainCurrencyConversion(Map<String,BigDecimal> targetMap){
+
+        loadMapFromPropertyBigDecimal(constant.mainConversionTable, targetMap);
+        loadMapFromCrossConversion(targetMap);
+        System.out.println(targetMap.toString());
     }
 
-    private void loadMapFromCrossConversion(Map<String, BigDecimal> targeteMap) {
+    private void loadMapFromCrossConversion(Map<String, BigDecimal> targetMap) {
 
+        calculateCrossConvRate(targetMap,constant.audCrossConversion);
 
+    }
 
+    private void calculateCrossConvRate(Map<String, BigDecimal> targetMap,String crossCurrencyProperty) {
+
+        Map<String,String> mapCrossCurrency = new HashMap<>();
+        loadMapFromPropertyString(crossCurrencyProperty,mapCrossCurrency);
+        System.out.println(mapCrossCurrency.toString());
+
+        mapCrossCurrency.keySet().forEach(key -> {
+            System.out.println(key);
+            String refCurrency = mapCrossCurrency.get(key).toUpperCase();
+            String[] splitedKey = StringUtils.split(key,constant.keySeparator);
+
+            Optional<BigDecimal> directCurrencyConvRate = conversionRate(splitedKey[0],refCurrency,targetMap);
+
+            if(directCurrencyConvRate.isPresent()){
+
+                BigDecimal amountInRefCurrency = directCurrencyConvRate.get();
+                Optional<BigDecimal> refCurrencyToTargetCurrencyConvRate = conversionRate(refCurrency,splitedKey[1],targetMap);
+
+                if(refCurrencyToTargetCurrencyConvRate.isPresent()){
+                    BigDecimal crossCalculatedConvRate = amountInRefCurrency.multiply(refCurrencyToTargetCurrencyConvRate.get());
+                    crossCalculatedConvRate = crossCalculatedConvRate.setScale(Integer.valueOf(constant.crossConvDecimalPoint),BigDecimal.ROUND_HALF_EVEN);
+                    targetMap.putIfAbsent(key,crossCalculatedConvRate);
+                }
+            }
+        });
+    }
+
+    public void loadMapFromPropertyString(String mainConversionTable, Map<String, String> targetMap) {
+
+        List<String> mainConversionRateList = Arrays.asList(StringUtils.split(mainConversionTable,constant.commaSeparator));
+
+        mainConversionRateList.forEach(convRatePair -> {
+
+            String[] currencyConv = StringUtils.split(convRatePair,constant.keyValueSeparator);
+            targetMap.putIfAbsent(currencyConv[0], currencyConv[1]);
+        });
 
     }
 
 
-    public void loadMapFromMainConversion(String mainConversionTable, Map<String, BigDecimal> targetMap) {
+    public void loadMapFromPropertyBigDecimal(String mainConversionTable, Map<String, BigDecimal> targetMap) {
 
         List<String> mainConversionRateList = Arrays.asList(StringUtils.split(mainConversionTable,constant.commaSeparator));
 
@@ -42,7 +80,6 @@ public class ConversionUtility {
             String[] currencyConv = StringUtils.split(convRatePair,constant.keyValueSeparator);
             targetMap.putIfAbsent(currencyConv[0], BigDecimal.valueOf(Double.valueOf(currencyConv[1])));
         });
-        System.out.println(targetMap.toString());
 
     }
 

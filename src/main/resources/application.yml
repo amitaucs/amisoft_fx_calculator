@@ -14,6 +14,7 @@ fx:
     aud-cross-conversion-table: AUD/CAD=USD,AUD/CNY=USD,AUD/CZK=USD,AUD/DKK=USD,AUR/EUR=USD,AUD/GBP=USD,AUD/JPY=USD,AUD/NOK=USD,AUD/NZD=USD
     default-decimal-point: 2
     special-decimal-point: JPY=0
+    conversion-rate-decimal-point: 4
   message:
     welcome: Welcome to FX Calculator.
     format-info: HELP   .... Data Format .... <Source Currency> <amount>  <In> <Target Currency> format e.g. AUD 100.00 in USD
