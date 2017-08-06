@@ -23,4 +23,6 @@ fx:
     continue-option-msg: Do you want to continue ? (Y/N)
     no-msg: N
     key-separator: /
+    key-value-seprator: =
+    comma-separator: ','
 

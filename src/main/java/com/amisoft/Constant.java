@@ -43,4 +43,10 @@ public  final class Constant {
     @Value(value = "${fx.message.key-separator}")
     public  String keySeparator;
 
+    @Value(value = "${fx.message.key-value-seprator}")
+    public  String keyValueSeparator;
+
+    @Value(value = "${fx.message.comma-separator}")
+    public  String commaSeparator;
+
 }
