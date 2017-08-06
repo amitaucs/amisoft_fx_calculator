@@ -2,6 +2,9 @@ package com.amisoft;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public  final class Constant {
 
     @Value(value = "${fx.calculator.reg-exp.input}")
@@ -48,5 +51,6 @@ public  final class Constant {
 
     @Value(value = "${fx.message.comma-separator}")
     public  String commaSeparator;
+
 
 }
