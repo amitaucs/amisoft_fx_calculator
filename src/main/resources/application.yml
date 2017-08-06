@@ -10,7 +10,8 @@ fx:
   calculator:
     reg-exp:
       input: (^[A-Z a-z]{3}[\s]{1,4}[0-9]+(\.[0-9]{1,2})*[\s]{1,4}[IN in]{2}[\s]{1,4}([A-Z a-z]{3}$))
-    main-conversion-table: AUDUSD=0.8371,CADUSD=0.8711,USDCNY=6.1715,EURUSD=1.2315,GBPUSD=1.5683,NZDUSD=0.7750,USDJPY=119.95,EURCZK=27.6028,EURDKK=7.4405,EURNOK=8.6651
+    main-conversion-table: AUD/USD=0.8371,CAD/USD=0.8711,USD/CNY=6.1715,EUR/USD=1.2315,GBP/USD=1.5683,NZD/USD=0.7750,USD/JPY=119.95,EUR/CZK=27.6028,EUR/DKK=7.4405,EUR/NOK=8.6651
+    aud-cross-conversion-table: AUD/CAD=USD,AUD/CNY=USD,AUD/CZK=USD,AUD/DKK=USD,AUR/EUR=USD,AUD/GBP=USD,AUD/JPY=USD,AUD/NOK=USD,AUD/NZD=USD
     default-decimal-point: 2
     special-decimal-point: JPY=0
   message:
@@ -21,4 +22,5 @@ fx:
     input-delimiter: \s
     continue-option-msg: Do you want to continue ? (Y/N)
     no-msg: N
+    key-separator: /
 

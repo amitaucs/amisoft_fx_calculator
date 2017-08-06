@@ -61,7 +61,7 @@ public class FXCalculatorRunner implements CommandLineRunner {
 
         defaultDecimalPoint = Integer.valueOf(constant.defaultDecimal);
 
-        conversionUtility.loadmainCurrencyConversion(constant.mainConversionTable, mainConversionRateMap);
+        conversionUtility.loadmainCurrencyConversion(mainConversionRateMap);
         conversionUtility.LoadMapFromPropertyInt(constant.specialDecimal, uptoWhatDecimalPtMap);
     }
 

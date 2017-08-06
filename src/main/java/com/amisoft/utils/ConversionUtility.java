@@ -1,6 +1,8 @@
 package com.amisoft.utils;
 
+import com.amisoft.Constant;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -14,14 +16,17 @@ import java.util.Optional;
 public class ConversionUtility {
 
 
-    public void loadmainCurrencyConversion(String mainConversionTable,Map<String,BigDecimal> targeteMap){
+    @Autowired
+    Constant constant;
 
-        LoadMapFromProperty(mainConversionTable, targeteMap);
+    public void loadmainCurrencyConversion(Map<String,BigDecimal> targeteMap){
+
+        loadMapFromMainConversion(constant.mainConversionTable, targeteMap);
     }
 
 
 
-    public void LoadMapFromProperty(String mainConversionTable, Map<String, BigDecimal> targeteMap) {
+    public void loadMapFromMainConversion(String mainConversionTable, Map<String, BigDecimal> targeteMap) {
 
         List<String> mainConversionRateList = Arrays.asList(StringUtils.split(mainConversionTable,","));
 
@@ -30,6 +35,7 @@ public class ConversionUtility {
             String[] currencyConv = StringUtils.split(convRatePair,"=");
             targeteMap.putIfAbsent(currencyConv[0], BigDecimal.valueOf(Double.valueOf(currencyConv[1])));
         });
+        System.out.println(targeteMap.toString());
 
     }
 
@@ -50,13 +56,13 @@ public class ConversionUtility {
 
     public Optional<BigDecimal> conversionRate(String sourceCurrency , String targetCurrency, Map<String, BigDecimal> targeteMap){
 
-        BigDecimal convertionRateOptional = targeteMap.getOrDefault(sourceCurrency+targetCurrency,null);
+        BigDecimal convertionRateOptional = targeteMap.getOrDefault(sourceCurrency+constant.keySeparator+targetCurrency,null);
 
         if(null != convertionRateOptional){
            return Optional.of(convertionRateOptional);
         }else{
 
-            convertionRateOptional = targeteMap.get(targetCurrency+sourceCurrency);
+            convertionRateOptional = targeteMap.get(targetCurrency+constant.keySeparator+sourceCurrency);
             if(null != convertionRateOptional){
 
                   BigDecimal conversionRate = (BigDecimal.valueOf(1).divide(convertionRateOptional,4,BigDecimal.ROUND_HALF_EVEN));

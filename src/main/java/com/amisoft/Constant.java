@@ -40,4 +40,7 @@ public  final class Constant {
     @Value(value = "${fx.message.no-msg}")
     public  String no;
 
+    @Value(value = "${fx.message.key-separator}")
+    public  String keySeparator;
+
 }
