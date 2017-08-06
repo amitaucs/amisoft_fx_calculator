@@ -12,7 +12,7 @@ fx:
       input: (^[A-Z a-z]{3}[\s]{1,4}[0-9]+(\.[0-9]{1,2})*[\s]{1,4}[IN in]{2}[\s]{1,4}([A-Z a-z]{3}$))
     main-conversion-table: AUDUSD=0.8371,CADUSD=0.8711,USDCNY=6.1715,EURUSD=1.2315,GBPUSD=1.5683,NZDUSD=0.7750,USDJPY=119.95,EURCZK=27.6028,EURDKK=7.4405,EURNOK=8.6651
     default-decimal-point: 2
-    special-decimal-point: JPY=2
+    special-decimal-point: JPY=0
   message:
     welcome: Welcome to FX Calculator.
     format-info: HELP   .... Data Format .... <Source Currency> <amount>  <In> <Target Currency> format e.g. AUD 100.00 in USD
