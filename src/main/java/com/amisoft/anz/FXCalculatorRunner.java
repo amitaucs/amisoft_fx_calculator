@@ -6,7 +6,6 @@ import com.amisoft.services.DisplayService;
 import com.amisoft.utils.ConversionUtility;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -18,20 +17,11 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.amisoft.Constant.*;
+
 @Component
 public class FXCalculatorRunner implements CommandLineRunner {
 
-    @Value(value = "${fx.calculator.reg-exp.input}")
-    String regExpression;
-
-    @Value(value = "${fx.calculator.main-conversion-table}")
-    String mainConversionTable;
-
-    @Value(value = "${fx.calculator.default-decimal-point}")
-    String defaultDecimal;
-
-    @Value(value = "${fx.calculator.special-decimal-point}")
-    String specialDecimal;
 
     @Autowired
     ConversionUtility conversionUtility;
@@ -58,8 +48,8 @@ public class FXCalculatorRunner implements CommandLineRunner {
         Boolean isDone = false;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Welcome to FX Calculator");
-        System.out.println("HELP : **** Enter the currencies you want to convert in  .... <Source Currency> <amount>  <In> <Target Currency> format e.g. AUD 100.00 in USD");
+        System.out.println(welcomeMsg);
+        System.out.println(formatMsg);
 
         processCalculator(isDone, scanner);
 
@@ -79,7 +69,7 @@ public class FXCalculatorRunner implements CommandLineRunner {
 
         do {
 
-            System.out.println("Please enter your input now :");
+            System.out.println(enterInputMsg);
             readFxInput(scanner);
             isDone = exitCheck(isDone, scanner);
 
@@ -99,7 +89,7 @@ public class FXCalculatorRunner implements CommandLineRunner {
         if (matcher.find()) {
             analyzeInput(currencyInput);
         } else {
-            System.out.println("Sorry .... Invalid input format . Please try again..");
+            System.out.println(invalidInputMsg);
         }
 
 
@@ -107,7 +97,7 @@ public class FXCalculatorRunner implements CommandLineRunner {
 
     private void analyzeInput(String inputString) {
 
-        Scanner scanner = new Scanner(inputString).useDelimiter("\\s");
+        Scanner scanner = new Scanner(inputString).useDelimiter(inputDelimiter);
         String sourceCurrency = scanner.next();
         BigDecimal amount = scanner.nextBigDecimal();
         scanner.next();
@@ -153,10 +143,10 @@ public class FXCalculatorRunner implements CommandLineRunner {
     }
 
     private Boolean exitCheck(Boolean isDone, Scanner scanner) {
-        System.out.println("Do you want to continue ? (Y/N)");
+        System.out.println(continueOptionMsg);
         System.out.println();
         String input = scanner.nextLine();
-        if (input != null && input.equalsIgnoreCase("N")) {
+        if (input != null && input.equalsIgnoreCase(no)) {
             isDone = true;
         }
         return isDone;
