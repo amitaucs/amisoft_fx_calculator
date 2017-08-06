@@ -21,7 +21,6 @@ public class ConversionUtility {
 
         loadMapFromPropertyBigDecimal(constant.mainConversionTable, targetMap);
         loadMapFromCrossConversion(targetMap);
-        System.out.println(targetMap.toString());
     }
 
     private void loadMapFromCrossConversion(Map<String, BigDecimal> targetMap) {
