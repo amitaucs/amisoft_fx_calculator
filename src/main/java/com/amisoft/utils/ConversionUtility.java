@@ -31,7 +31,6 @@ public class ConversionUtility {
             targeteMap.putIfAbsent(currencyConv[0], BigDecimal.valueOf(Double.valueOf(currencyConv[1])));
         });
 
-        System.out.println(targeteMap.keySet().toString());
     }
 
 

@@ -11,10 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Scanner;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,9 +33,9 @@ public class FXCalculatorRunner implements CommandLineRunner {
     Constant constant;
 
 
-    private Map<String, BigDecimal> mainConversionRateMap = new TreeMap<>();
+    private Map<String, BigDecimal> mainConversionRateMap = new HashMap<>();
 
-    private Map<String, Integer> uptoWhatDecimalPtMap = new TreeMap<>();
+    private Map<String, Integer> uptoWhatDecimalPtMap = new HashMap<>();
 
     int defaultDecimalPoint;
 
