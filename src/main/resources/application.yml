@@ -15,7 +15,7 @@ fx:
     special-decimal-point: JPY=2
   message:
     welcome: Welcome to FX Calculator.
-    format-info: Enter the currencies you want to convert in  .... <Source Currency> <amount>  <In> <Target Currency> format e.g. AUD 100.00 in USD
+    format-info: HELP   .... Data Format .... <Source Currency> <amount>  <In> <Target Currency> format e.g. AUD 100.00 in USD
     enter-input: Please enter your input
     invalid-input: Sorry .... Invalid input format . Please try again..
     input-delimiter: \s

@@ -54,6 +54,7 @@ public class FXCalculatorRunner implements CommandLineRunner {
 
         System.out.println(constant.welcomeMsg);
         System.out.println(constant.formatMsg);
+        System.out.println();
 
         processCalculator(isDone, scanner);
 
