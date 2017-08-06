@@ -22,20 +22,27 @@ public class ConversionUtility {
     public void loadmainCurrencyConversion(Map<String,BigDecimal> targeteMap){
 
         loadMapFromMainConversion(constant.mainConversionTable, targeteMap);
+        loadMapFromCrossConversion(targeteMap);
+    }
+
+    private void loadMapFromCrossConversion(Map<String, BigDecimal> targeteMap) {
+
+
+
+
     }
 
 
+    public void loadMapFromMainConversion(String mainConversionTable, Map<String, BigDecimal> targetMap) {
 
-    public void loadMapFromMainConversion(String mainConversionTable, Map<String, BigDecimal> targeteMap) {
-
-        List<String> mainConversionRateList = Arrays.asList(StringUtils.split(mainConversionTable,","));
+        List<String> mainConversionRateList = Arrays.asList(StringUtils.split(mainConversionTable,constant.commaSeparator));
 
         mainConversionRateList.forEach(convRatePair -> {
 
-            String[] currencyConv = StringUtils.split(convRatePair,"=");
-            targeteMap.putIfAbsent(currencyConv[0], BigDecimal.valueOf(Double.valueOf(currencyConv[1])));
+            String[] currencyConv = StringUtils.split(convRatePair,constant.keyValueSeparator);
+            targetMap.putIfAbsent(currencyConv[0], BigDecimal.valueOf(Double.valueOf(currencyConv[1])));
         });
-        System.out.println(targeteMap.toString());
+        System.out.println(targetMap.toString());
 
     }
 
