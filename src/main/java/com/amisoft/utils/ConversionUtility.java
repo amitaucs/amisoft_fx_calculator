@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.*;
 
 
@@ -22,12 +21,12 @@ public class ConversionUtility {
 
         loadMapFromPropertyBigDecimal(constant.mainConversionTable, targetMap);
         loadMapFromCrossConversion(targetMap);
-        System.out.println(targetMap.toString());
     }
 
     private void loadMapFromCrossConversion(Map<String, BigDecimal> targetMap) {
 
         calculateCrossConvRate(targetMap,constant.audCrossConversion);
+        calculateCrossConvRate(targetMap,constant.cadCrossConversion);
 
     }
 
@@ -35,10 +34,9 @@ public class ConversionUtility {
 
         Map<String,String> mapCrossCurrency = new HashMap<>();
         loadMapFromPropertyString(crossCurrencyProperty,mapCrossCurrency);
-        System.out.println(mapCrossCurrency.toString());
 
         mapCrossCurrency.keySet().forEach(key -> {
-            System.out.println(key);
+
             String refCurrency = mapCrossCurrency.get(key).toUpperCase();
             String[] splitedKey = StringUtils.split(key,constant.keySeparator);
 
@@ -112,7 +110,7 @@ public class ConversionUtility {
 
                   //adding missing value in map for faster processing
 
-                  targeteMap.putIfAbsent(targetCurrency+sourceCurrency,conversionRate);
+                  targeteMap.putIfAbsent(targetCurrency+constant.keySeparator+sourceCurrency,conversionRate);
                   return Optional.of(conversionRate);
 
             }else{

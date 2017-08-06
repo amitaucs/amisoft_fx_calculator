@@ -52,6 +52,9 @@ public  final class Constant {
     @Value(value = "${fx.message.comma-separator}")
     public  String commaSeparator;
 
+    @Value(value = "${fx.calculator.cad-cross-conversion-table}")
+    public  String cadCrossConversion;
+
     @Value(value = "${fx.calculator.aud-cross-conversion-table}")
     public  String audCrossConversion;
 
