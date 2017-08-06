@@ -4,6 +4,7 @@ import com.amisoft.dto.CurrencyConversionDetailsDto;
 import com.amisoft.services.ConversionCalculatorService;
 import com.amisoft.services.DisplayService;
 import com.amisoft.utils.ConversionUtility;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -79,14 +80,11 @@ public class FXCalculatorRunner implements CommandLineRunner {
         do {
 
             System.out.println("Please enter your input now :");
-            System.out.println();
             readFxInput(scanner);
             isDone = exitCheck(isDone, scanner);
 
         } while (!isDone);
     }
-
-
 
 
     private void readFxInput(Scanner scanner) {
@@ -99,7 +97,6 @@ public class FXCalculatorRunner implements CommandLineRunner {
         Matcher matcher = pattern.matcher(currencyInput);
 
         if (matcher.find()) {
-            System.out.println(matcher.group());
             analyzeInput(currencyInput);
         } else {
             System.out.println("Sorry .... Invalid input format . Please try again..");
@@ -117,34 +114,39 @@ public class FXCalculatorRunner implements CommandLineRunner {
         String targetCurrency = scanner.next();
         scanner.close();
         scanner = null;
+
         int uptoWhatDecimalPt = (uptoWhatDecimalPtMap.getOrDefault(targetCurrency, defaultDecimalPoint));
+
+        if (StringUtils.equalsIgnoreCase(sourceCurrency, targetCurrency)) {
+
+            CurrencyConversionDetailsDto currencyConversionDetailsDto = constructConversionDto(sourceCurrency, targetCurrency, amount, BigDecimal.valueOf(1), uptoWhatDecimalPt, amount);
+            displayService.displayConversionOutput(currencyConversionDetailsDto);
+
+        } else {
+            sourceAndTargetCurrencyDifferent(sourceCurrency, amount, targetCurrency, uptoWhatDecimalPt);
+        }
+    }
+
+    private void sourceAndTargetCurrencyDifferent(String sourceCurrency, BigDecimal amount, String targetCurrency, int uptoWhatDecimalPt) {
         Optional<BigDecimal> conversionRate = conversionUtility.conversionRate(sourceCurrency.toUpperCase(), targetCurrency.toUpperCase(), mainConversionRateMap);
 
 
         if (conversionRate.isPresent()) {
 
-            CurrencyConversionDetailsDto currencyConversionDetailsDto = constructConversionDto(sourceCurrency, targetCurrency, amount, conversionRate.get(), uptoWhatDecimalPt);
+            CurrencyConversionDetailsDto currencyConversionDetailsDto = constructConversionDto(sourceCurrency, targetCurrency, amount, conversionRate.get(), uptoWhatDecimalPt, null);
+            conversionCalculatorService.doConversion(currencyConversionDetailsDto);
 
-            String convertedAmountDisplay = conversionCalculatorService.doConversion(currencyConversionDetailsDto);
-
-            System.out.println();
-            System.out.println(convertedAmountDisplay);
         } else {
 
-            CurrencyConversionDetailsDto currencyConversionDetailsDto = constructConversionDto(sourceCurrency, targetCurrency, amount, conversionRate.get(), uptoWhatDecimalPt);
+            CurrencyConversionDetailsDto currencyConversionDetailsDto = constructConversionDto(sourceCurrency, targetCurrency, amount, null, uptoWhatDecimalPt, null);
             displayService.displayConversionOutputError(currencyConversionDetailsDto);
         }
     }
 
-    private CurrencyConversionDetailsDto constructConversionDto(String source, String target, BigDecimal amount, BigDecimal conversionRate, int uptoWhatDecimalPt) {
+    private CurrencyConversionDetailsDto constructConversionDto(String source, String target, BigDecimal amount, BigDecimal conversionRate, int uptoWhatDecimalPt, BigDecimal convertedAmount) {
 
-        CurrencyConversionDetailsDto conversionDetailsDto = new CurrencyConversionDetailsDto();
-        conversionDetailsDto.setSourceCurrency(source);
-        conversionDetailsDto.setTargetCurrency(target);
-        conversionDetailsDto.setConversionRate(conversionRate);
-        conversionDetailsDto.setAmount(amount);
-        conversionDetailsDto.setUpToWhichDecimalPt(uptoWhatDecimalPt);
-        return conversionDetailsDto;
+        return new CurrencyConversionDetailsDto(source, target, amount, conversionRate, uptoWhatDecimalPt, convertedAmount);
+
 
     }
 

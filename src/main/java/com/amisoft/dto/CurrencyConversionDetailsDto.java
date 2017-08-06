@@ -11,6 +11,16 @@ public class CurrencyConversionDetailsDto {
     private int upToWhichDecimalPt;
     private BigDecimal convertedAmount;
 
+
+    public CurrencyConversionDetailsDto(String sourceCurrency, String targetCurrency, BigDecimal amount, BigDecimal conversionRate, int upToWhichDecimalPt, BigDecimal convertedAmount) {
+        this.sourceCurrency = sourceCurrency;
+        this.targetCurrency = targetCurrency;
+        this.amount = amount;
+        this.conversionRate = conversionRate;
+        this.upToWhichDecimalPt = upToWhichDecimalPt;
+        this.convertedAmount = convertedAmount;
+    }
+
     public String getSourceCurrency() {
         return sourceCurrency;
     }
