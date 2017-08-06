@@ -1,5 +1,6 @@
 package com.amisoft.anz;
 
+import com.amisoft.Constant;
 import com.amisoft.services.ConversionCalculatorService;
 import com.amisoft.services.DisplayService;
 import com.amisoft.utils.ConversionUtility;
@@ -28,6 +29,11 @@ public class AnzApplication {
 	@Bean
 	DisplayService displayService(){
 		return new DisplayService();
+	}
+
+	@Bean
+	Constant constant(){
+		return new Constant();
 	}
 
 

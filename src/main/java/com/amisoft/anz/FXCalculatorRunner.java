@@ -1,5 +1,6 @@
 package com.amisoft.anz;
 
+import com.amisoft.Constant;
 import com.amisoft.dto.CurrencyConversionDetailsDto;
 import com.amisoft.services.ConversionCalculatorService;
 import com.amisoft.services.DisplayService;
@@ -7,6 +8,7 @@ import com.amisoft.utils.ConversionUtility;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -17,7 +19,6 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.amisoft.Constant.*;
 
 @Component
 public class FXCalculatorRunner implements CommandLineRunner {
@@ -31,6 +32,9 @@ public class FXCalculatorRunner implements CommandLineRunner {
 
     @Autowired
     DisplayService displayService;
+
+    @Autowired
+    Constant constant;
 
 
     private Map<String, BigDecimal> mainConversionRateMap = new TreeMap<>();
@@ -48,8 +52,8 @@ public class FXCalculatorRunner implements CommandLineRunner {
         Boolean isDone = false;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(welcomeMsg);
-        System.out.println(formatMsg);
+        System.out.println(constant.welcomeMsg);
+        System.out.println(constant.formatMsg);
 
         processCalculator(isDone, scanner);
 
@@ -58,10 +62,10 @@ public class FXCalculatorRunner implements CommandLineRunner {
 
     private void loadAllData() {
 
-        defaultDecimalPoint = Integer.valueOf(defaultDecimal);
+        defaultDecimalPoint = Integer.valueOf(constant.defaultDecimal);
 
-        conversionUtility.loadmainCurrencyConversion(mainConversionTable, mainConversionRateMap);
-        conversionUtility.LoadMapFromPropertyInt(specialDecimal, uptoWhatDecimalPtMap);
+        conversionUtility.loadmainCurrencyConversion(constant.mainConversionTable, mainConversionRateMap);
+        conversionUtility.LoadMapFromPropertyInt(constant.specialDecimal, uptoWhatDecimalPtMap);
     }
 
 
@@ -69,7 +73,7 @@ public class FXCalculatorRunner implements CommandLineRunner {
 
         do {
 
-            System.out.println(enterInputMsg);
+            System.out.println(constant.enterInputMsg);
             readFxInput(scanner);
             isDone = exitCheck(isDone, scanner);
 
@@ -83,13 +87,13 @@ public class FXCalculatorRunner implements CommandLineRunner {
         System.out.println();
         String currencyInput = scanner.nextLine();
 
-        Pattern pattern = Pattern.compile(regExpression);
+        Pattern pattern = Pattern.compile(constant.regExpression);
         Matcher matcher = pattern.matcher(currencyInput);
 
         if (matcher.find()) {
             analyzeInput(currencyInput);
         } else {
-            System.out.println(invalidInputMsg);
+            System.out.println(constant.invalidInputMsg);
         }
 
 
@@ -97,7 +101,7 @@ public class FXCalculatorRunner implements CommandLineRunner {
 
     private void analyzeInput(String inputString) {
 
-        Scanner scanner = new Scanner(inputString).useDelimiter(inputDelimiter);
+        Scanner scanner = new Scanner(inputString).useDelimiter(constant.inputDelimiter);
         String sourceCurrency = scanner.next();
         BigDecimal amount = scanner.nextBigDecimal();
         scanner.next();
@@ -143,10 +147,10 @@ public class FXCalculatorRunner implements CommandLineRunner {
     }
 
     private Boolean exitCheck(Boolean isDone, Scanner scanner) {
-        System.out.println(continueOptionMsg);
+        System.out.println(constant.continueOptionMsg);
         System.out.println();
         String input = scanner.nextLine();
-        if (input != null && input.equalsIgnoreCase(no)) {
+        if (input != null && input.equalsIgnoreCase(constant.no)) {
             isDone = true;
         }
         return isDone;
