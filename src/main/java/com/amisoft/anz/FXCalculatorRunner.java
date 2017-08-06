@@ -113,7 +113,6 @@ public class FXCalculatorRunner implements CommandLineRunner {
         scanner.next();
         String targetCurrency = scanner.next();
         scanner.close();
-        scanner = null;
 
         int uptoWhatDecimalPt = (uptoWhatDecimalPtMap.getOrDefault(targetCurrency, defaultDecimalPoint));
 
@@ -126,6 +125,8 @@ public class FXCalculatorRunner implements CommandLineRunner {
             sourceAndTargetCurrencyDifferent(sourceCurrency, amount, targetCurrency, uptoWhatDecimalPt);
         }
     }
+
+
 
     private void sourceAndTargetCurrencyDifferent(String sourceCurrency, BigDecimal amount, String targetCurrency, int uptoWhatDecimalPt) {
         Optional<BigDecimal> conversionRate = conversionUtility.conversionRate(sourceCurrency.toUpperCase(), targetCurrency.toUpperCase(), mainConversionRateMap);
@@ -143,10 +144,11 @@ public class FXCalculatorRunner implements CommandLineRunner {
         }
     }
 
+
+
     private CurrencyConversionDetailsDto constructConversionDto(String source, String target, BigDecimal amount, BigDecimal conversionRate, int uptoWhatDecimalPt, BigDecimal convertedAmount) {
 
         return new CurrencyConversionDetailsDto(source, target, amount, conversionRate, uptoWhatDecimalPt, convertedAmount);
-
 
     }
 
