@@ -58,6 +58,33 @@ public  final class Constant {
     @Value(value = "${fx.calculator.aud-cross-conversion-table}")
     public  String audCrossConversion;
 
+    @Value(value = "${fx.calculator.cny-cross-conversion-table}")
+    public  String cnyCrossConversion;
+
+    @Value(value = "${fx.calculator.czk-cross-conversion-table}")
+    public  String czkCrossConversion;
+
+    @Value(value = "${fx.calculator.dkk-cross-conversion-table}")
+    public  String dkkCrossConversion;
+
+    @Value(value = "${fx.calculator.eur-cross-conversion-table}")
+    public  String eurCrossConversion;
+
+    @Value(value = "${fx.calculator.gbp-cross-conversion-table}")
+    public  String gbpCrossConversion;
+
+    @Value(value = "${fx.calculator.jpy-cross-conversion-table}")
+    public  String jpyCrossConversion;
+
+    @Value(value = "${fx.calculator.nok-cross-conversion-table}")
+    public  String nokCrossConversion;
+
+    @Value(value = "${fx.calculator.nzd-cross-conversion-table}")
+    public  String nzdCrossConversion;
+
+    @Value(value = "${fx.calculator.usd-cross-conversion-table}")
+    public  String usdCrossConversion;
+
     @Value(value = "${fx.calculator.conversion-rate-decimal-point}")
     public  String crossConvDecimalPoint;
 

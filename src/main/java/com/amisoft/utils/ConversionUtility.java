@@ -21,12 +21,22 @@ public class ConversionUtility {
 
         loadMapFromPropertyBigDecimal(constant.mainConversionTable, targetMap);
         loadMapFromCrossConversion(targetMap);
+        System.out.println(targetMap.toString());
     }
 
     private void loadMapFromCrossConversion(Map<String, BigDecimal> targetMap) {
 
         calculateCrossConvRate(targetMap,constant.audCrossConversion);
         calculateCrossConvRate(targetMap,constant.cadCrossConversion);
+        calculateCrossConvRate(targetMap,constant.cnyCrossConversion);
+        calculateCrossConvRate(targetMap,constant.czkCrossConversion);
+        calculateCrossConvRate(targetMap,constant.dkkCrossConversion);
+        calculateCrossConvRate(targetMap,constant.eurCrossConversion);
+        calculateCrossConvRate(targetMap,constant.gbpCrossConversion);
+        calculateCrossConvRate(targetMap,constant.jpyCrossConversion);
+        calculateCrossConvRate(targetMap,constant.nokCrossConversion);
+        calculateCrossConvRate(targetMap,constant.nzdCrossConversion);
+        calculateCrossConvRate(targetMap,constant.usdCrossConversion);
 
     }
 
