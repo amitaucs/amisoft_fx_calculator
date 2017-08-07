@@ -64,8 +64,6 @@ public class FxCalculatorStepDef {
             Assert.assertEquals(true, StringUtils.equalsIgnoreCase(actualOutputMsg, inputStringList.get(count).getMessage()));
             count++;
 
-            //Assert.assertEquals(true,true);
-
         });
     }
 }
