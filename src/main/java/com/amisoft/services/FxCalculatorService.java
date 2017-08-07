@@ -55,7 +55,7 @@ public class FxCalculatorService {
 
             return Optional.empty();
         } else {
-            return Optional.of(splitInputStringToGetCurrencyAndAmount(optionalInputString.get()));
+            return Optional.of(validateInputStringWithValidFormat(optionalInputString.get()));
         }
     }
 
@@ -115,14 +115,6 @@ public class FxCalculatorService {
         String sourceCurrency = inputStringAfterSplit[0];
         BigDecimal amount = new BigDecimal(inputStringAfterSplit[1]);
         String targetCurrency = inputStringAfterSplit[3];
-
-
-        /*Scanner scanner = new Scanner(inputString).useDelimiter(constant.inputDelimiter);
-        String sourceCurrency = scanner.next();
-        BigDecimal amount = scanner.nextBigDecimal();
-        scanner.next();
-        String targetCurrency = scanner.next();
-        scanner.close();*/
 
         return processValidateInputDataForFxConversion(sourceCurrency, amount, targetCurrency);
     }
