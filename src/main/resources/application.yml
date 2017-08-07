@@ -4,7 +4,7 @@ spring:
     web-environment: false
 logging:
   pattern:
-    console:
+   console:
 
 fx:
   calculator:
