@@ -13,7 +13,7 @@ public class ConversionCalculatorService {
     @Autowired
     DisplayService displayService;
 
-    public void doConversion(CurrencyConversionDetailsDto currencyConversionDetailsDto) {
+    public String  doConversion(CurrencyConversionDetailsDto currencyConversionDetailsDto) {
 
         BigDecimal amount = currencyConversionDetailsDto.getAmount();
         BigDecimal conversionRate = currencyConversionDetailsDto.getConversionRate();
@@ -21,7 +21,7 @@ public class ConversionCalculatorService {
         BigDecimal convertedAmount = amount.multiply(conversionRate);
         convertedAmount = convertedAmount.setScale(currencyConversionDetailsDto.getUpToWhichDecimalPt(),BigDecimal.ROUND_HALF_UP);
         currencyConversionDetailsDto.setConvertedAmount(convertedAmount);
-        displayService.displayConversionOutput(currencyConversionDetailsDto);
+        return displayService.displayConversionOutput(currencyConversionDetailsDto);
     }
 
 

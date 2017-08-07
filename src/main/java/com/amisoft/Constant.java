@@ -19,6 +19,11 @@ public  final class Constant {
     @Value(value = "${fx.calculator.special-decimal-point}")
     public  String specialDecimal;
 
+    @Value(value = "${fx.calculator.console}")
+    public  boolean isConsoleEntry;
+
+
+
 
     //Message
 

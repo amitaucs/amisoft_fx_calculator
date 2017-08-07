@@ -12,7 +12,7 @@ public class DisplayService {
     final String SLASH = "/";
 
 
-    public void displayConversionOutput(CurrencyConversionDetailsDto currencyConversionDetailsDto) {
+    public String displayConversionOutput(CurrencyConversionDetailsDto currencyConversionDetailsDto) {
 
         String stringToDisplay = new StringBuilder()
                 .append(currencyConversionDetailsDto.getSourceCurrency())
@@ -25,29 +25,29 @@ public class DisplayService {
                 .append(space)
                 .append(String.valueOf(currencyConversionDetailsDto.getConvertedAmount())).toString();
 
-        display(stringToDisplay);
+        return display(stringToDisplay);
 
     }
 
 
+    public String displayConversionOutputError(CurrencyConversionDetailsDto currencyConversionDetailsDto) {
 
-    public void displayConversionOutputError(CurrencyConversionDetailsDto currencyConversionDetailsDto) {
-
-        String sitringToDisplayError = new StringBuilder()
+        String stringToDisplayError = new StringBuilder()
                 .append("Unable to find rate for  ")
                 .append(currencyConversionDetailsDto.getSourceCurrency())
                 .append(SLASH)
                 .append(currencyConversionDetailsDto.getTargetCurrency()).toString();
 
-        display(sitringToDisplayError);
+        return display(stringToDisplayError);
 
 
     }
 
-    private void display(String stringToDisplay) {
+    private String display(String stringToDisplay) {
         System.out.println();
         System.out.println(stringToDisplay);
         System.out.println();
+        return stringToDisplay;
     }
 
 
