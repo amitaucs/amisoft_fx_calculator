@@ -7,6 +7,9 @@ import java.util.Map;
 
 public  final class Constant {
 
+
+    public  String spaceSeparator = " ";
+
     @Value(value = "${fx.calculator.reg-exp.input}")
     public  String regExpression;
 
@@ -54,8 +57,9 @@ public  final class Constant {
     @Value(value = "${fx.message.key-value-seprator}")
     public  String keyValueSeparator;
 
-    @Value(value = "${fx.message.comma-separator}")
-    public  String commaSeparator;
+    @Value(value = "${fx.message.currency-pair-separator}")
+    public  String currencyPairSeparator;
+
 
     @Value(value = "${fx.calculator.cad-cross-conversion-table}")
     public  String cadCrossConversion;

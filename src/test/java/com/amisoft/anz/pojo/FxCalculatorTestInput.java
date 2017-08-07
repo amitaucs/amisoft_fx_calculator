@@ -6,7 +6,7 @@ public class FxCalculatorTestInput {
 
     String sourceCurrency;
     String targetCurrency;
-    BigDecimal amount;
+    String amount;
     String phase;
     String message;
 
@@ -27,11 +27,11 @@ public class FxCalculatorTestInput {
         this.targetCurrency = targetCurrency;
     }
 
-    public BigDecimal getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 

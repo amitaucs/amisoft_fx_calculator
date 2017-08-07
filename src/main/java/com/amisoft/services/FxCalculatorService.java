@@ -111,13 +111,18 @@ public class FxCalculatorService {
 
     private String splitInputStringToGetCurrencyAndAmount(String inputString) {
 
+        String[] inputStringAfterSplit = StringUtils.split(inputString,constant.spaceSeparator);
+        String sourceCurrency = inputStringAfterSplit[0];
+        BigDecimal amount = new BigDecimal(inputStringAfterSplit[1]);
+        String targetCurrency = inputStringAfterSplit[3];
 
-        Scanner scanner = new Scanner(inputString).useDelimiter(constant.inputDelimiter);
+
+        /*Scanner scanner = new Scanner(inputString).useDelimiter(constant.inputDelimiter);
         String sourceCurrency = scanner.next();
         BigDecimal amount = scanner.nextBigDecimal();
         scanner.next();
         String targetCurrency = scanner.next();
-        scanner.close();
+        scanner.close();*/
 
         return processValidateInputDataForFxConversion(sourceCurrency, amount, targetCurrency);
     }

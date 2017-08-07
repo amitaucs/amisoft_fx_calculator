@@ -67,7 +67,7 @@ public class ConversionUtility {
 
     public void loadMapFromPropertyString(String mainConversionTable, Map<String, String> targetMap) {
 
-        List<String> mainConversionRateList = Arrays.asList(StringUtils.split(mainConversionTable,constant.commaSeparator));
+        List<String> mainConversionRateList = Arrays.asList(StringUtils.split(mainConversionTable,constant.currencyPairSeparator));
 
         mainConversionRateList.forEach(convRatePair -> {
 
@@ -80,7 +80,7 @@ public class ConversionUtility {
 
     public void loadMapFromPropertyBigDecimal(String mainConversionTable, Map<String, BigDecimal> targetMap) {
 
-        List<String> mainConversionRateList = Arrays.asList(StringUtils.split(mainConversionTable,constant.commaSeparator));
+        List<String> mainConversionRateList = Arrays.asList(StringUtils.split(mainConversionTable,constant.currencyPairSeparator));
 
         mainConversionRateList.forEach(convRatePair -> {
 
@@ -93,7 +93,7 @@ public class ConversionUtility {
 
     public void LoadMapFromPropertyInt(String mainConversionTable, Map<String, Integer> targeteMap) {
 
-        List<String> mainConversionRateList = Arrays.asList(StringUtils.split(mainConversionTable,constant.commaSeparator));
+        List<String> mainConversionRateList = Arrays.asList(StringUtils.split(mainConversionTable,constant.currencyPairSeparator));
 
         mainConversionRateList.forEach(convRatePair -> {
 

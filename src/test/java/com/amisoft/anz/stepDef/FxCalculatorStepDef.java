@@ -1,16 +1,21 @@
 package com.amisoft.anz.stepDef;
 
 
+import com.amisoft.Constant;
 import com.amisoft.anz.pojo.FxCalculatorTestInput;
 import com.amisoft.services.FxCalculatorService;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @ContextConfiguration
 @SpringBootTest
@@ -20,15 +25,44 @@ public class FxCalculatorStepDef {
     @Autowired
     FxCalculatorService fxCalculatorService;
 
+    @Autowired
+    Constant constant;
+
+    List<String> actualOutputMsgFromFxCalculatorList = new ArrayList<>();
+
+    private final String SPACE = constant.spaceSeparator;
+
+    private int count = 0;
+
     @Given("^John has entered currencies as$")
     public void john_has_entered_currencies_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
 
-        System.out.println("Hi");
+        inputStringList.forEach(testInputStringPojo ->{
+
+            String inputString = new StringBuilder().append(testInputStringPojo.getSourceCurrency())
+                    .append(SPACE)
+                    .append(testInputStringPojo.getAmount())
+                    .append(SPACE)
+                    .append(testInputStringPojo.getPhase())
+                    .append(testInputStringPojo.getTargetCurrency())
+                    .toString();
+
+            Optional<String> optionalInput  = Optional.of(inputString);
+            String outputMsgAfterConversion = (fxCalculatorService.startFxCalculator(optionalInput)).get();
+            actualOutputMsgFromFxCalculatorList.add(outputMsgAfterConversion);
+
+        });
+
     }
 
     @Then("^John should get the converted amount <message> as$")
-    public void john_should_get_the_converted_amount_message_as(List<FxCalculatorTestInput> outPutStringMsgList) throws Throwable {
+    public void john_should_get_the_converted_amount_message_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
 
-        System.out.println("Hi");
+
+        actualOutputMsgFromFxCalculatorList.forEach(actualOutputMsg ->{
+
+            Assert.assertEquals(true, StringUtils.equalsIgnoreCase(actualOutputMsg, inputStringList.get(0).getMessage()));
+
+        });
     }
 }

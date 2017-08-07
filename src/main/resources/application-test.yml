@@ -40,4 +40,4 @@ fx:
     no-msg: N
     key-separator: /
     key-value-seprator: =
-    comma-separator: ','
+    currency-pair-separator: ','
