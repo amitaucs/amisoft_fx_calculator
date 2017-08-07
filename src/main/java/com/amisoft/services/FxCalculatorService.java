@@ -45,28 +45,31 @@ public class FxCalculatorService {
 
         if (!optionalInputString.isPresent()) {
 
+            showWelcomeMsgInConsole();
+
             Boolean isDone = false;
             Scanner scanner = new Scanner(System.in);
 
-            System.out.println(constant.welcomeMsg);
-            System.out.println(constant.formatMsg);
-            System.out.println();
-
             processCalculator(isDone, scanner);
-
             scanner.close();
+
             return Optional.empty();
         } else {
-            return Optional.of(analyzeInput(optionalInputString.get()));
+            return Optional.of(splitInputStringToGetCurrencyAndAmount(optionalInputString.get()));
         }
     }
 
     private void loadAllData() {
 
         defaultDecimalPoint = Integer.valueOf(constant.defaultDecimal);
-
         conversionUtility.loadmainCurrencyConversion(mainConversionRateMap);
         conversionUtility.LoadMapFromPropertyInt(constant.specialDecimal, uptoWhatDecimalPtMap);
+    }
+
+    private void showWelcomeMsgInConsole() {
+        System.out.println(constant.welcomeMsg);
+        System.out.println(constant.formatMsg);
+        System.out.println();
     }
 
 
@@ -75,32 +78,39 @@ public class FxCalculatorService {
         do {
 
             System.out.println(constant.enterInputMsg);
-            readFxInput(scanner);
-            isDone = exitCheck(isDone, scanner);
+            readInputStringFromConsole(scanner);
+            isDone = showMessageInConsoleWithExitOption(isDone, scanner);
 
         } while (!isDone);
     }
 
 
-    private void readFxInput(Scanner scanner) {
-
+    private void readInputStringFromConsole(Scanner scanner) {
 
         System.out.println();
         String currencyInput = scanner.nextLine();
+
+        validateInputStringWithValidFormat(currencyInput);
+
+    }
+
+
+    private String validateInputStringWithValidFormat(String currencyInput) {
 
         Pattern pattern = Pattern.compile(constant.regExpression);
         Matcher matcher = pattern.matcher(currencyInput);
 
         if (matcher.find()) {
-            analyzeInput(currencyInput);
+            return splitInputStringToGetCurrencyAndAmount(currencyInput);
         } else {
+
             System.out.println(constant.invalidInputMsg);
+            return constant.invalidInputMsg;
         }
-
-
     }
 
-    private String analyzeInput(String inputString) {
+    private String splitInputStringToGetCurrencyAndAmount(String inputString) {
+
 
         Scanner scanner = new Scanner(inputString).useDelimiter(constant.inputDelimiter);
         String sourceCurrency = scanner.next();
@@ -109,20 +119,25 @@ public class FxCalculatorService {
         String targetCurrency = scanner.next();
         scanner.close();
 
-        int uptoWhatDecimalPt = (uptoWhatDecimalPtMap.getOrDefault(targetCurrency, defaultDecimalPoint));
+        return processValidateInputDataForFxConversion(sourceCurrency, amount, targetCurrency);
+    }
+
+    private String processValidateInputDataForFxConversion(String sourceCurrency, BigDecimal amount, String targetCurrency) {
+
+        int uptoWhichDecimalPt = (uptoWhatDecimalPtMap.getOrDefault(targetCurrency, defaultDecimalPoint));
 
         if (StringUtils.equalsIgnoreCase(sourceCurrency, targetCurrency)) {
 
-            CurrencyConversionDetailsDto currencyConversionDetailsDto = constructConversionDto(sourceCurrency, targetCurrency, amount, BigDecimal.valueOf(1), uptoWhatDecimalPt, amount);
+            CurrencyConversionDetailsDto currencyConversionDetailsDto = constructConversionDto(sourceCurrency, targetCurrency, amount, BigDecimal.valueOf(1), uptoWhichDecimalPt, amount);
             return displayService.displayConversionOutput(currencyConversionDetailsDto);
 
         } else {
-            return sourceAndTargetCurrencyDifferent(sourceCurrency, amount, targetCurrency, uptoWhatDecimalPt);
+            return processFxConversionEhwnSourceAndTargetCurrencyDifferent(sourceCurrency, amount, targetCurrency, uptoWhichDecimalPt);
         }
     }
 
 
-    private String sourceAndTargetCurrencyDifferent(String sourceCurrency, BigDecimal amount, String targetCurrency, int uptoWhatDecimalPt) {
+    private String processFxConversionEhwnSourceAndTargetCurrencyDifferent(String sourceCurrency, BigDecimal amount, String targetCurrency, int uptoWhatDecimalPt) {
         Optional<BigDecimal> conversionRate = conversionUtility.conversionRate(sourceCurrency.toUpperCase(), targetCurrency.toUpperCase(), mainConversionRateMap);
 
 
@@ -139,13 +154,8 @@ public class FxCalculatorService {
     }
 
 
-    private CurrencyConversionDetailsDto constructConversionDto(String source, String target, BigDecimal amount, BigDecimal conversionRate, int uptoWhatDecimalPt, BigDecimal convertedAmount) {
+    private Boolean showMessageInConsoleWithExitOption(Boolean isDone, Scanner scanner) {
 
-        return new CurrencyConversionDetailsDto(source, target, amount, conversionRate, uptoWhatDecimalPt, convertedAmount);
-
-    }
-
-    private Boolean exitCheck(Boolean isDone, Scanner scanner) {
         System.out.println(constant.continueOptionMsg);
         System.out.println();
         String input = scanner.nextLine();
@@ -155,4 +165,10 @@ public class FxCalculatorService {
         return isDone;
     }
 
+
+    private CurrencyConversionDetailsDto constructConversionDto(String source, String target, BigDecimal amount, BigDecimal conversionRate, int uptoWhatDecimalPt, BigDecimal convertedAmount) {
+
+        return new CurrencyConversionDetailsDto(source, target, amount, conversionRate, uptoWhatDecimalPt, convertedAmount);
+
+    }
 }
