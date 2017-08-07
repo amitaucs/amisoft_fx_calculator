@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DisplayService {
 
-    final String space = "  ";
+    final String space = " ";
     final String equalStr = "=";
     final String SLASH = "/";
 

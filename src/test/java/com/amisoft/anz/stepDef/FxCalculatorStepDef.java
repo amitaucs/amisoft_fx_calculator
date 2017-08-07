@@ -59,10 +59,10 @@ public class FxCalculatorStepDef {
 
         actualOutputMsgFromFxCalculatorList.forEach(actualOutputMsg -> {
 
-            /*Assert.assertEquals(true, StringUtils.equalsIgnoreCase(actualOutputMsg, inputStringList.get(0).getMessage()));
-            count++;*/
+            Assert.assertEquals(true, StringUtils.equalsIgnoreCase(actualOutputMsg, inputStringList.get(count).getMessage()));
+            count++;
 
-            Assert.assertEquals(true,true);
+            //Assert.assertEquals(true,true);
 
         });
     }
