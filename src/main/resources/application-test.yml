@@ -41,3 +41,7 @@ fx:
     key-separator: /
     key-value-seprator: =
     currency-pair-separator: ','
+  display:
+    unable-to-find-conversion:  Unable to find rate for
+    slash: /
+    equal: =

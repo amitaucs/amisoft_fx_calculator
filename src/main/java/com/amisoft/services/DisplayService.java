@@ -1,28 +1,29 @@
 package com.amisoft.services;
 
 
+import com.amisoft.Constant;
 import com.amisoft.dto.CurrencyConversionDetailsDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DisplayService {
 
-    final String space = " ";
-    final String equalStr = "=";
-    final String SLASH = "/";
+    @Autowired
+    Constant constant;
 
 
     public String displayConversionOutput(CurrencyConversionDetailsDto currencyConversionDetailsDto) {
 
         String stringToDisplay = new StringBuilder()
                 .append(currencyConversionDetailsDto.getSourceCurrency())
-                .append(space)
+                .append(constant.spaceSeparator)
                 .append(String.valueOf(currencyConversionDetailsDto.getAmount()))
-                .append(space)
-                .append(equalStr)
-                .append(space)
+                .append(constant.spaceSeparator)
+                .append(constant.displayEqual)
+                .append(constant.spaceSeparator)
                 .append(currencyConversionDetailsDto.getTargetCurrency())
-                .append(space)
+                .append(constant.spaceSeparator)
                 .append(String.valueOf(currencyConversionDetailsDto.getConvertedAmount())).toString();
 
         return display(stringToDisplay);
@@ -33,9 +34,10 @@ public class DisplayService {
     public String displayConversionOutputError(CurrencyConversionDetailsDto currencyConversionDetailsDto) {
 
         String stringToDisplayError = new StringBuilder()
-                .append("Unable to find rate for  ")
+                .append(constant.displayUnableToFindConversion)
+                .append(constant.spaceSeparator)
                 .append(currencyConversionDetailsDto.getSourceCurrency())
-                .append(SLASH)
+                .append(constant.displaySlash)
                 .append(currencyConversionDetailsDto.getTargetCurrency()).toString();
 
         return display(stringToDisplayError);

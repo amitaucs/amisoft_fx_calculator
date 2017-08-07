@@ -25,9 +25,11 @@ public class FxCalculatorStepDef {
     @Autowired
     FxCalculatorService fxCalculatorService;
 
+    @Autowired
+    Constant constant;
+
     List<String> actualOutputMsgFromFxCalculatorList = new ArrayList<>();
 
-    private final String SPACE = " ";
 
     private int count = 0;
 
@@ -37,11 +39,11 @@ public class FxCalculatorStepDef {
         inputStringList.forEach(testInputStringPojo -> {
 
             String inputString = new StringBuilder().append(testInputStringPojo.getSourceCurrency())
-                    .append(SPACE)
+                    .append(constant.spaceSeparator)
                     .append(testInputStringPojo.getAmount())
-                    .append(SPACE)
+                    .append(constant.spaceSeparator)
                     .append(testInputStringPojo.getPhase())
-                    .append(SPACE)
+                    .append(constant.spaceSeparator)
                     .append(testInputStringPojo.getTargetCurrency())
                     .toString();
 

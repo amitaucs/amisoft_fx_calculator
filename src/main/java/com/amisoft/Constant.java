@@ -8,8 +8,6 @@ import java.util.Map;
 public  final class Constant {
 
 
-    public  String spaceSeparator = " ";
-
     @Value(value = "${fx.calculator.reg-exp.input}")
     public  String regExpression;
 
@@ -96,6 +94,22 @@ public  final class Constant {
 
     @Value(value = "${fx.calculator.conversion-rate-decimal-point}")
     public  String crossConvDecimalPoint;
+
+
+    // Display
+
+    public  String spaceSeparator = " ";
+
+    @Value(value = "${fx.display.unable-to-find-conversion}")
+    public  String displayUnableToFindConversion;
+
+    @Value(value = "${fx.display.slash}")
+    public  String displaySlash;
+
+    @Value(value = "${fx.display.equal}")
+    public  String displayEqual;
+
+
 
 
 
