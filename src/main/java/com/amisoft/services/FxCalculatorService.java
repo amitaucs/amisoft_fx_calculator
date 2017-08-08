@@ -46,17 +46,16 @@ public class FxCalculatorService {
         if (!optionalInputString.isPresent()) {
 
             showWelcomeMsgInConsole();
-
             Boolean isDone = false;
             Scanner scanner = new Scanner(System.in);
-
             processCalculator(isDone, scanner);
             scanner.close();
-
-            return Optional.empty();
         } else {
-            return Optional.of(validateInputStringWithValidFormat(optionalInputString.get()));
+            if(validateInputStringWithValidFormat(optionalInputString.get())){
+                return Optional.of(splitInputStringToGetCurrencyAndAmount(optionalInputString.get()));
+            }
         }
+         return Optional.empty();
     }
 
     private void loadAllData() {
@@ -78,34 +77,34 @@ public class FxCalculatorService {
         do {
 
             System.out.println(constant.enterInputMsg);
-            readInputStringFromConsole(scanner);
+            String currencyInput = readInputStringFromConsole(scanner);
+             if(validateInputStringWithValidFormat(currencyInput)){
+                splitInputStringToGetCurrencyAndAmount(currencyInput);
+            }else{
+                System.out.println(constant.invalidInputMsg);
+            }
             isDone = showMessageInConsoleWithExitOption(isDone, scanner);
 
         } while (!isDone);
     }
 
 
-    private void readInputStringFromConsole(Scanner scanner) {
+    private String readInputStringFromConsole(Scanner scanner) {
 
         System.out.println();
-        String currencyInput = scanner.nextLine();
-
-        validateInputStringWithValidFormat(currencyInput);
-
+        return scanner.nextLine();
     }
 
 
-    private String validateInputStringWithValidFormat(String currencyInput) {
+    private boolean validateInputStringWithValidFormat(String currencyInput) {
 
         Pattern pattern = Pattern.compile(constant.regExpression);
         Matcher matcher = pattern.matcher(currencyInput);
 
         if (matcher.find()) {
-            return splitInputStringToGetCurrencyAndAmount(currencyInput);
+            return true;
         } else {
-
-            System.out.println(constant.invalidInputMsg);
-            return constant.invalidInputMsg;
+           return false;
         }
     }
 
