@@ -25,7 +25,7 @@ fx:
     usd-cross-conversion-table: USD/CZK=EUR,USD/DKK=EUR,USD/NOK=EUR
 
     default-decimal-point: 2
-    special-decimal-point: JPY=2
+    special-decimal-point: JPY=0
     conversion-rate-decimal-point: 4
   message:
     welcome: Welcome to FX Calculator.

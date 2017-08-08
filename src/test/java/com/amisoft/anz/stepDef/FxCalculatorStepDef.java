@@ -7,11 +7,11 @@ import com.amisoft.services.FxCalculatorService;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -55,6 +55,12 @@ public class FxCalculatorStepDef {
         ProcessTestData(inputStringList);
     }
 
+    @Given("^John has provided cross currencies as$")
+    public void John_has_provided_cross_currencies_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
+
+        ProcessTestData(inputStringList);
+    }
+
     @Given("^John has provided invalid currencies as$")
     public void John_has_provided_invalid_currencies_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
 
@@ -91,8 +97,9 @@ public class FxCalculatorStepDef {
     @Then("^John should get the converted amount <message> as$")
     public void john_should_get_the_converted_amount_message_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
 
-        actualOutputMsgFromFxCalculatorList.forEach(actualOutputMsg -> {
+        assertThat(actualOutputMsgFromFxCalculatorList.equals(inputStringList));
 
+        actualOutputMsgFromFxCalculatorList.forEach(actualOutputMsg -> {
             assertThat(StringUtils.equalsIgnoreCase(actualOutputMsg, inputStringList.get(count).getMessage()));
             count++;
 

@@ -15,12 +15,12 @@ Feature: FX-Calculator - A currency conversion application
   Scenario: Input in valid format for which source to target currency are different and inverse of direct conversion is needed.
     Given   John has provided inverse currencies as
       | sourceCurrency | amount | phase | targetCurrency |
-      | USD            | 83.71 | In    | AUD            |
+      | USD            | 83.71  | In    | AUD            |
     Then John should get the converted amount <message> as
-      | message                |
+      | message             |
       | USD 83.71 = AUD 100 |
 
-  Scenario: Input in valid format for which source and target currency is same
+  Scenario: Input in valid format for which source and target currency is same.
     Given John has provided same currencies as
       | sourceCurrency | amount | phase | targetCurrency |
       | AUD            | 100.00 | In    | AUD            |
@@ -29,6 +29,14 @@ Feature: FX-Calculator - A currency conversion application
       | message                 |
       | AUD 100.00 = AUD 100.00 |
       | EUR 100.00 = EUR 100.00 |
+
+  Scenario: Input in valid format for which direct conversion rate of source and target currency unavailable and cross conversion is needed.
+    Given John has provided cross currencies as
+      | sourceCurrency | amount | phase | targetCurrency |
+      | AUD            | 1      | In    | JPA            |
+    Then John should get the converted amount <message> as
+      | message         |
+      | AUD 1 = JPY 100 |
 
   Scenario: Input in valid format for source and target currency for which no conversion rate available
     Given John has provided invalid currencies as
