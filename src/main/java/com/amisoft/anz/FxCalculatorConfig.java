@@ -1,10 +1,14 @@
 package com.amisoft.anz;
 
 import com.amisoft.Constant;
+import com.amisoft.processor.FxCalculatorBaseProcessor;
+import com.amisoft.processor.FxCalculatorConsoleProcessor;
+import com.amisoft.processor.FxProcessorFactory;
 import com.amisoft.services.ConversionCalculatorService;
 import com.amisoft.services.DisplayService;
 import com.amisoft.services.FxCalculatorService;
 import com.amisoft.utils.ConversionUtility;
+import com.amisoft.utils.FxCalculatorValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,27 +16,49 @@ import org.springframework.context.annotation.Configuration;
 public class FxCalculatorConfig {
 
     @Bean
-    public ConversionUtility conversionUtility(){
+    public ConversionUtility conversionUtility() {
         return new ConversionUtility();
     }
 
     @Bean
-    ConversionCalculatorService conversionCalculatorService(){
+    ConversionCalculatorService conversionCalculatorService() {
         return new ConversionCalculatorService();
     }
 
     @Bean
-    DisplayService displayService(){
+    DisplayService displayService() {
         return new DisplayService();
     }
 
     @Bean
-    Constant constant(){
+    Constant constant() {
         return new Constant();
     }
 
     @Bean
-    FxCalculatorService fxCalculatorService(){
+    FxCalculatorService fxCalculatorService() {
         return new FxCalculatorService();
     }
+
+    @Bean
+    FxProcessorFactory fxProcessorFactory() {
+        return new FxProcessorFactory();
+    }
+
+    @Bean
+    FxCalculatorConsoleProcessor fxCalculatorConsoleProcessor() {
+        return new FxCalculatorConsoleProcessor();
+    }
+
+    @Bean
+    FxCalculatorBaseProcessor fxCalculatorBaseProcessor() {
+        return new FxCalculatorBaseProcessor();
+    }
+
+    @Bean
+    FxCalculatorValidator fxCalculatorValidator() {
+        return new FxCalculatorValidator();
+    }
+
+
 }

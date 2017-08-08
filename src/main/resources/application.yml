@@ -3,7 +3,6 @@ spring:
   main:
     web-environment: false
 
-
 fx:
   calculator:
     console:
@@ -43,5 +42,9 @@ fx:
      unable-to-find-conversion:  Unable to find rate for
      slash: /
      equal: =
+
+logging:
+  pattern:
+    console:
 
 
