@@ -37,22 +37,7 @@ public class FxCalculatorStepDef {
     @Given("^John has provided currencies as$")
     public void john_has_provided_different_currencies_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
 
-        inputStringList.forEach(testInputPojo -> {
-
-            String inputString = new StringBuilder().append(testInputPojo.getSourceCurrency())
-                    .append(constant.spaceSeparator)
-                    .append(testInputPojo.getAmount())
-                    .append(constant.spaceSeparator)
-                    .append(testInputPojo.getPhase())
-                    .append(constant.spaceSeparator)
-                    .append(testInputPojo.getTargetCurrency())
-                    .toString();
-
-            Optional<String> optionalInput = Optional.of(inputString);
-            String outputMsgAfterConversion = (fxCalculatorService.startFxCalculator(optionalInput)).get();
-            actualOutputMsgFromFxCalculatorList.add(outputMsgAfterConversion);
-
-        });
+        ProcessTestData(inputStringList);
 
     }
 
@@ -60,6 +45,11 @@ public class FxCalculatorStepDef {
     @Given("^he has provided currencies as$")
     public void he_has_provided_same_currencies_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
 
+        ProcessTestData(inputStringList);
+    }
+
+
+    private void ProcessTestData(List<FxCalculatorTestInput> inputStringList) {
         inputStringList.forEach(testInputStringPojo -> {
 
             String inputString = new StringBuilder().append(testInputStringPojo.getSourceCurrency())
@@ -77,7 +67,6 @@ public class FxCalculatorStepDef {
 
         });
     }
-
 
 
     @Then("^John should get the converted amount <message> as$")
