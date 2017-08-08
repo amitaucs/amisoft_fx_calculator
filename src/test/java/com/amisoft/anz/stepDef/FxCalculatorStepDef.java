@@ -34,7 +34,7 @@ public class FxCalculatorStepDef {
 
     private int count = 0;
 
-    @Given("^John has provided currencies as$")
+    @Given("^John has provided different currencies as$")
     public void john_has_provided_different_currencies_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
 
         ProcessTestData(inputStringList);
@@ -42,8 +42,20 @@ public class FxCalculatorStepDef {
     }
 
 
-    @Given("^he has provided currencies as$")
-    public void he_has_provided_same_currencies_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
+    @Given("^John has provided same currencies as$")
+    public void John_has_provided_same_currencies_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
+
+        ProcessTestData(inputStringList);
+    }
+
+    @Given("^John has provided invalid currencies as$")
+    public void John_has_provided_invalid_currencies_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
+
+        ProcessTestData(inputStringList);
+    }
+
+    @Given("^John has provided invalid input as$")
+    public void John_has_provided_invalid_input_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
 
         ProcessTestData(inputStringList);
     }
