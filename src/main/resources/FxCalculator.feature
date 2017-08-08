@@ -12,6 +12,14 @@ Feature: FX-Calculator - A currency conversion application
       | AUD 100.00 = USD 83.71 |
       | JPY 100 = USD 0.83     |
 
+  Scenario: Input in valid format for which source to target currency are different and inverse of direct conversion is needed.
+    Given   John has provided inverse currencies as
+      | sourceCurrency | amount | phase | targetCurrency |
+      | USD            | 83.71 | In    | AUD            |
+    Then John should get the converted amount <message> as
+      | message                |
+      | USD 83.71 = AUD 100 |
+
   Scenario: Input in valid format for which source and target currency is same
     Given John has provided same currencies as
       | sourceCurrency | amount | phase | targetCurrency |
@@ -34,6 +42,8 @@ Feature: FX-Calculator - A currency conversion application
     Given John has provided invalid input as
       | sourceCurrency | amount | phase | targetCurrency |
       | invalid        | 445e   | In    | FJDG           |
+      | wweerr         | 2we4   | df    | fvg            |
     Then John should get the converted amount <message> as
       | Message                                              |
+      | Sorry .... Invalid input format . Please try again.. |
       | Sorry .... Invalid input format . Please try again.. |

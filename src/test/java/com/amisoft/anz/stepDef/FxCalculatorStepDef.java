@@ -41,6 +41,13 @@ public class FxCalculatorStepDef {
 
     }
 
+    @Given("^John has provided inverse currencies as$")
+    public void john_has_provided_inverse_currencies_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
+
+        ProcessTestData(inputStringList);
+
+    }
+
 
     @Given("^John has provided same currencies as$")
     public void John_has_provided_same_currencies_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
