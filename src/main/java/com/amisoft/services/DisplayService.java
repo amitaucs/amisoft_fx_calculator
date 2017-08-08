@@ -46,9 +46,12 @@ public class DisplayService {
     }
 
     private String display(String stringToDisplay) {
-        System.out.println();
-        System.out.println(stringToDisplay);
-        System.out.println();
+
+        if (constant.isConsoleEntry) {
+            System.out.println();
+            System.out.println(stringToDisplay);
+            System.out.println();
+        }
         return stringToDisplay;
     }
 
