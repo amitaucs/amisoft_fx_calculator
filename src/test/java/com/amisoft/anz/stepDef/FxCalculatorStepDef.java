@@ -8,15 +8,15 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
-import org.junit.runners.JUnit4;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration
 @SpringBootTest
@@ -74,7 +74,7 @@ public class FxCalculatorStepDef {
 
         actualOutputMsgFromFxCalculatorList.forEach(actualOutputMsg -> {
 
-            Assert.assertEquals(true, StringUtils.equalsIgnoreCase(actualOutputMsg, inputStringList.get(count).getMessage()));
+            assertThat(StringUtils.equalsIgnoreCase(actualOutputMsg, inputStringList.get(count).getMessage()));
             count++;
 
         });
