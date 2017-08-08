@@ -7,10 +7,12 @@ Feature: FX-Calculator - A currency conversion application
       | sourceCurrency | amount | phase | targetCurrency |
       | AUD            | 100.00 | In    | USD            |
       | JPY            | 100    | In    | USD            |
+      | AUD            | 100    | In    | DKK            |
     Then John should get the converted amount <message> as
       | message                |
       | AUD 100.00 = USD 83.71 |
       | JPY 100 = USD 0.83     |
+      | AUD 100 = DKK 505.76   |
 
   Scenario: Input in valid format for which source to target currency are different and inverse of direct conversion is needed
     Given   John has provided inverse currencies as
