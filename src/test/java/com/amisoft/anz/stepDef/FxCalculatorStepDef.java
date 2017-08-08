@@ -34,8 +34,31 @@ public class FxCalculatorStepDef {
 
     private int count = 0;
 
-    @Given("^John has entered currencies as$")
-    public void john_has_entered_currencies_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
+    @Given("^John has provided currencies as$")
+    public void john_has_provided_different_currencies_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
+
+        inputStringList.forEach(testInputPojo -> {
+
+            String inputString = new StringBuilder().append(testInputPojo.getSourceCurrency())
+                    .append(constant.spaceSeparator)
+                    .append(testInputPojo.getAmount())
+                    .append(constant.spaceSeparator)
+                    .append(testInputPojo.getPhase())
+                    .append(constant.spaceSeparator)
+                    .append(testInputPojo.getTargetCurrency())
+                    .toString();
+
+            Optional<String> optionalInput = Optional.of(inputString);
+            String outputMsgAfterConversion = (fxCalculatorService.startFxCalculator(optionalInput)).get();
+            actualOutputMsgFromFxCalculatorList.add(outputMsgAfterConversion);
+
+        });
+
+    }
+
+
+    @Given("^he has provided currencies as$")
+    public void he_has_provided_same_currencies_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
 
         inputStringList.forEach(testInputStringPojo -> {
 
@@ -53,8 +76,9 @@ public class FxCalculatorStepDef {
             actualOutputMsgFromFxCalculatorList.add(outputMsgAfterConversion);
 
         });
-
     }
+
+
 
     @Then("^John should get the converted amount <message> as$")
     public void john_should_get_the_converted_amount_message_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
@@ -65,5 +89,7 @@ public class FxCalculatorStepDef {
             count++;
 
         });
+
+        actualOutputMsgFromFxCalculatorList.clear();
     }
 }

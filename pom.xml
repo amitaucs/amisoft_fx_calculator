@@ -80,11 +80,10 @@
             <scope>test</scope>
         </dependency>
 
-        <!--<dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
-            <version>5.0.0.RC3</version>
-        </dependency>-->
+        </dependency>
 
     </dependencies>
 
