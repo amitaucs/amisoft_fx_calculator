@@ -24,6 +24,7 @@
         <java.version>1.8</java.version>
         <apache.common.lang.version>3.0</apache.common.lang.version>
         <cucumber.version>1.2.5</cucumber.version>
+        <junit-version>4.11</junit-version>
     </properties>
 
     <dependencies>
@@ -63,6 +64,13 @@
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-spring</artifactId>
             <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit-version}</version>
             <scope>test</scope>
         </dependency>
 

@@ -8,6 +8,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
+import org.junit.runners.JUnit4;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -57,7 +58,6 @@ public class FxCalculatorStepDef {
 
     @Then("^John should get the converted amount <message> as$")
     public void john_should_get_the_converted_amount_message_as(List<FxCalculatorTestInput> inputStringList) throws Throwable {
-
 
         actualOutputMsgFromFxCalculatorList.forEach(actualOutputMsg -> {
 
