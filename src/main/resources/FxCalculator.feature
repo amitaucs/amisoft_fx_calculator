@@ -2,7 +2,7 @@ Feature: FX-Calculator - A currency conversion application
 
   Background: John is accessing Fx-Calculator application
 
-  Scenario: Input in valid format for which source to target currency are different and direct conversion is available.
+  Scenario: Input in valid format for which source to target currency are different and direct conversion is available
     Given   John has provided different currencies as
       | sourceCurrency | amount | phase | targetCurrency |
       | AUD            | 100.00 | In    | USD            |
@@ -12,7 +12,7 @@ Feature: FX-Calculator - A currency conversion application
       | AUD 100.00 = USD 83.71 |
       | JPY 100 = USD 0.83     |
 
-  Scenario: Input in valid format for which source to target currency are different and inverse of direct conversion is needed.
+  Scenario: Input in valid format for which source to target currency are different and inverse of direct conversion is needed
     Given   John has provided inverse currencies as
       | sourceCurrency | amount | phase | targetCurrency |
       | USD            | 83.71  | In    | AUD            |
@@ -20,7 +20,7 @@ Feature: FX-Calculator - A currency conversion application
       | message             |
       | USD 83.71 = AUD 100 |
 
-  Scenario: Input in valid format for which source and target currency is same.
+  Scenario: Input in valid format for which source and target currency is same
     Given John has provided same currencies as
       | sourceCurrency | amount | phase | targetCurrency |
       | AUD            | 100.00 | In    | AUD            |
@@ -30,7 +30,7 @@ Feature: FX-Calculator - A currency conversion application
       | AUD 100.00 = AUD 100.00 |
       | EUR 100.00 = EUR 100.00 |
 
-  Scenario: Input in valid format for which direct conversion rate of source and target currency unavailable and cross conversion is needed.
+  Scenario: Input in valid format for which direct conversion rate of source and target currency unavailable and cross conversion is needed
     Given John has provided cross currencies as
       | sourceCurrency | amount | phase | targetCurrency |
       | AUD            | 1      | In    | JPA            |
