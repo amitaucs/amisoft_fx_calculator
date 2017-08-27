@@ -2,7 +2,9 @@ package com.amisoft;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public  final class Constant {
@@ -15,10 +17,10 @@ public  final class Constant {
     public  String mainConversionTable;
 
     @Value(value = "${fx.calculator.default-decimal-point}")
-    public  String defaultDecimal;
+    public  int defaultDecimal;
 
-    @Value(value = "${fx.calculator.special-decimal-point}")
-    public  String specialDecimal;
+    @Value(value = "${fx.calculator.special-decimal-point-currency}")
+    public  String specialDecimalCurrency;
 
     @Value(value = "${fx.calculator.console}")
     public  boolean isConsoleEntry;
@@ -110,8 +112,10 @@ public  final class Constant {
     public  String displayEqual;
 
 
+    //Cache load
 
-
+    @Value(value = "${fx.calculator.cache-source}")
+    public  String cacheLoadSource;
 
 
 }

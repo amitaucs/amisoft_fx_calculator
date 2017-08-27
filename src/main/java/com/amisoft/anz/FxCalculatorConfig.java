@@ -1,6 +1,8 @@
 package com.amisoft.anz;
 
 import com.amisoft.Constant;
+import com.amisoft.cache.ConversionRateCache;
+import com.amisoft.cache.ConversionRateCacheFromPropertyFileImpl;
 import com.amisoft.processor.FxCalculatorBaseProcessor;
 import com.amisoft.processor.FxCalculatorConsoleProcessor;
 import com.amisoft.processor.FxProcessorFactory;
@@ -59,6 +61,9 @@ public class FxCalculatorConfig {
     FxCalculatorValidator fxCalculatorValidator() {
         return new FxCalculatorValidator();
     }
+
+    @Bean
+    ConversionRateCacheFromPropertyFileImpl conversionRateCache(){return new ConversionRateCacheFromPropertyFileImpl();}
 
 
 }

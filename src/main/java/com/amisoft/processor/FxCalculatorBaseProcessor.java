@@ -31,19 +31,20 @@ public class FxCalculatorBaseProcessor implements FxProcessor {
     @Autowired
     FxCalculatorValidator fxCalculatorValidator;
 
+    @Autowired
+    FxProcessorFactory fxProcessorFactory;
+
 
     private Map<String, BigDecimal> mainConversionRateMap = new HashMap<>();
 
-    private Map<String, Integer> uptoWhatDecimalPtMap = new HashMap<>();
+    private Map<String, Integer> decimalPtMapForSpecialCurrency = new HashMap<>();
 
-    int defaultDecimalPoint;
 
     @Override
     public Optional<String> fxCurrencyProcessor(Optional<String> optionalInputString) {
 
-        if (mainConversionRateMap.isEmpty() && uptoWhatDecimalPtMap.isEmpty()) {
-            loadAllData();
-        }
+        mainConversionRateMap =  fxProcessorFactory.getFxCalculatorConversionRateCache(constant.cacheLoadSource).getConversionRateMap();
+        decimalPtMapForSpecialCurrency = fxProcessorFactory.getFxCalculatorConversionRateCache(constant.cacheLoadSource).getDecimalPtMapForSpecialCurrency();
 
         if (constant.isConsoleEntry) {
 
@@ -56,12 +57,6 @@ public class FxCalculatorBaseProcessor implements FxProcessor {
         }
     }
 
-    private void loadAllData() {
-
-        defaultDecimalPoint = Integer.valueOf(constant.defaultDecimal);
-        conversionUtility.loadmainCurrencyConversion(mainConversionRateMap);
-        conversionUtility.LoadMapFromPropertyInt(constant.specialDecimal, uptoWhatDecimalPtMap);
-    }
 
 
     private String splitInputStringToGetCurrencyAndAmount(String inputString) {
@@ -76,7 +71,7 @@ public class FxCalculatorBaseProcessor implements FxProcessor {
 
     private String processValidateInputDataForFxConversion(String sourceCurrency, BigDecimal amount, String targetCurrency) {
 
-        int uptoWhichDecimalPt = (uptoWhatDecimalPtMap.getOrDefault(targetCurrency, defaultDecimalPoint));
+        int uptoWhichDecimalPt = (decimalPtMapForSpecialCurrency.getOrDefault(targetCurrency, constant.defaultDecimal));
 
         if (StringUtils.equalsIgnoreCase(sourceCurrency, targetCurrency)) {
 

@@ -2,9 +2,6 @@
 spring:
   main:
     web-environment: false
-logging:
-  pattern:
-    console:
 
 fx:
   calculator:
@@ -28,8 +25,9 @@ fx:
     usd-cross-conversion-table: USD/CZK=EUR,USD/DKK=EUR,USD/NOK=EUR
 
     default-decimal-point: 2
-    special-decimal-point: JPY=0
+    special-decimal-point-currency: JPY=0
     conversion-rate-decimal-point: 4
+    cache-source: property
   message:
     welcome: Welcome to FX Calculator.
     format-info: HELP   .... Data Format .... <Source Currency> <amount>  <In> <Target Currency> format e.g. AUD 100.00 in USD
@@ -42,6 +40,12 @@ fx:
     key-value-seprator: =
     currency-pair-separator: ','
   display:
-    unable-to-find-conversion:  Unable to find rate for
-    slash: /
-    equal: =
+     unable-to-find-conversion:  Unable to find rate for
+     slash: /
+     equal: =
+
+logging:
+  pattern:
+    console:
+
+
